@@ -1,0 +1,108 @@
+<form novalidate #formulario="ngForm" (ngSubmit)="salvarLocalEvento()" >
+  <div class="section section-basic">
+    <div class="container">
+      <div id="dados-pessoais">
+        <h4>Local do Evento</h4>
+        <p class="category">Conte-nos qual a localização do evento</p>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <label>Endereço</label>
+              <input type="text" 
+                     class="form-control" 
+                     placeholder="Informe o endereço" 
+                     ngModel 
+                     minlength="3"
+                     required
+                     name="endereco">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>Numero</label>
+              <input type="text" 
+                     class="form-control" 
+                     placeholder="Informe o numero" 
+                     minlength="1"
+                     ngModel 
+                     required
+                     name="numero">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>Complemento</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Informe o complemento" 
+                ngModel
+                required
+                name="complemento">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+              <div class="form-group">
+                <label>Bairro</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Informe o bairro" 
+                    ngModel 
+                    required
+                    minlength="2"
+                    maxlength="30"
+                    name="bairro">
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Cidade</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Informe a cidade" 
+              ngModel
+              required
+              minlength="2"
+              maxlength="30"
+              name="cidade">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Estado</label>
+              <input type="text"  
+                     minlength="2" 
+                     class="form-control" 
+                     placeholder="Informe o estado" 
+                     ngModel 
+                     required
+                     minlength="2"
+                     maxlength="30"
+                     name="estado">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>CEP</label>
+              <input type="text" 
+                     minlength="8" 
+                     maxlength="9" 
+                     required
+                     class="form-control" 
+                     placeholder="Informe o CEP" 
+                     ngModel name="cep">
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-round btn-lg pull-right" type="submit">Continuar</button>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</form>

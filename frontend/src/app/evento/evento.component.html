@@ -1,0 +1,51 @@
+<form novalidate #formulario="ngForm" (ngSubmit)="salvarDadosEvento()">
+  <div class="section section-basic">
+    <div class="container">
+      <div id="dados-pessoais">
+        <h4>Sobre o Evento</h4>
+        <p class="category">Conte-nos sobre o tipo de evento que você quer fazer</p>
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="tipoEvento">Tipo do evento</label>
+              <input ngModel name="tipoEvento" required minlength="3" maxlength="20" type="text" class="form-control" placeholder="Ex. Casamento, aniversário infantil, formatura">
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>Numero de pessoas</label>
+              <input ngModel name="numeroPessoas" required minlength="1" maxlength="20" type="text" class="form-control" placeholder="Ex: 200">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="dataHoraDeInicio">Data e hora de inicio</label>
+              <input name="dataHoraDeInicio" ngModel required type="datetime-local" class="form-control" placeholder="Ex: 16:00">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="dataHoraDeTermino">Data e hora de termino</label>
+              <input name="dataHoraDeTermino" ngModel required type="datetime-local" class="form-control" placeholder="Ex: 14/12/2019 ">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Outras informações</label>
+              <textarea ngModel name="outrasInformacoes" rows="5" class="form-control" placeholder="Informe aqui detalhes adicionais do evento que você ache necessário informar"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-round btn-lg pull-right" type="submit">Continuar</button>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</form>

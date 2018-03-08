@@ -1,0 +1,46 @@
+<div class="section section-basic">
+    <div class="container">
+      <div id="dados-pessoais">
+        <h4>Confirmaçao da solicitação</h4>
+        <div>
+            <p class="category">Dados pessoais</p>
+          <dl>
+            <dt>Nome</dt>
+            <dd>{{cliente.nome}}</dd>
+            <dt>Email</dt>
+            <dd>{{cliente.email}}</dd>
+            <dt>Telefone</dt>
+            <dd>{{cliente.telefone}}</dd>
+          </dl>
+
+        </div>
+
+
+        <div>
+            <p class="category">Local do evento</p>
+          <dl>
+            <dt>Endereco</dt>
+            <dd>{{endereco.rua}} - {{endereco.numero}}, {{endereco.complemento}}, {{endereco.bairro}}, CEP: {{endereco.cep}}, {{endereco.cidade}}-{{endereco.estado}}</dd>
+          </dl>
+        </div>
+
+        <div>
+            <p class="category">Detalhes do evento</p>
+          <dl>
+            <dt>Evento</dt>
+            <dd>{{evento.tipoEvento}}</dd>
+            <dt>Periodo</dt>
+            <dd>Início dia {{evento.dataHoraDeInicio | date: 'dd/MM/yyyy'}} até {{evento.dataHoraDeTermino | date: 'dd/MM/yyyy'}}</dd>
+            <dt>Numero de pessoas</dt>
+            <dd>{{evento.numeroPessoas}}</dd>
+          </dl>
+        </div>
+
+      </div>
+      <button (click)="confimarPedido()" class="btn btn-primary btn-round btn-lg pull-right" type="submit">Confirmar</button>
+      <div class="clearfix"></div>
+    </div>
+    <div>
+          
+      </div>
+  </div>

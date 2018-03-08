@@ -1,0 +1,6 @@
+<app-progresso [titulo]="titulo" [progresso]="progresso" [progressoStyle]="progressoStyle"></app-progresso>
+<app-cliente (clienteSalvoEmiter)="clienteSalvoEmiter($event)" *ngIf="inserirCliente"></app-cliente>
+<app-endereco (enderecoSalvoEmiter)="enderecoSalvoEmiter($event)" *ngIf="inserirEndereco"></app-endereco>
+<app-evento (eventoSalvoEmiter)="eventoSalvoEmiter($event)" *ngIf="inserirEvento"></app-evento>
+<app-confirmacao [cliente]="cliente" [evento]="evento" [endereco]="endereco" *ngIf="confirmacao" (confirmarPedidoEmiter)="confirmarPedidoEmiter($event)"></app-confirmacao>
+<app-sucesso *ngIf="sucesso"></app-sucesso>
