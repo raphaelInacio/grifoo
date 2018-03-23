@@ -1,11 +1,11 @@
 {
-  "name": "pedidos",
+  "name": "backend-grifoo",
   "version": "1.0.0",
   "description": "",
   "main": "loader.js",
   "scripts": {
     "dev": "nodemon",
-    "production": "pm2 start loader.js --name backend"
+    "start": "nodemon"
   },
   "author": "Raphael Inácio da Silva",
   "license": "ISC",
@@ -13,11 +13,12 @@
     "@sendgrid/mail": "^6.2.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
+    "dotenv": "^5.0.1",
     "express": "^4.15.3",
     "express-query-int": "^1.0.1",
     "jsonwebtoken": "^7.3.0",
     "loadash": "0.0.1",
-    "mongoose": "^4.10.0",
+    "mongoose": "^4.13.12",
     "mongoose-paginate": "^5.0.3",
     "node-restful": "^0.2.6",
     "pm2": "^2.4.6"

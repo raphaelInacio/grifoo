@@ -2,6 +2,7 @@ const Pedido = require('./pedido')
 const emailService = require('../email/emailService')
 
 const PedidoService = {
+  
   findAll: (res) => {
     Pedido.find(function (err, pedidos) {
       if (err)
@@ -10,6 +11,7 @@ const PedidoService = {
     });
 
   },
+
   findById: (id, res) => {
     Pedido.findById(id, function (error, pedido) {
       if (error)
@@ -18,6 +20,7 @@ const PedidoService = {
     });
 
   },
+  
   save: (pedido, res) => {
 
     let novoPedido = new Pedido()
@@ -41,12 +44,8 @@ const PedidoService = {
 
       emailService.send(msg, res.json(pedido))
       });
-
-
-
-
-
   }
+  
 }
 
 module.exports = PedidoService

@@ -1,0 +1,57 @@
+version: '2'
+services:
+ db:
+  image: mongo:3.4
+ backend:
+  image: node:8.1
+  volumes: 
+    - ./backend:/backend
+  environment:
+    NODE_ENV: development
+  ports: 
+    - 3003:3003
+  command: bash -c "cd /backend && npm i -g && npm start"
+  depends_on:
+      - "db"
+ frontend:
+  image: node:8.1
+  volumes: 
+    - ./frontend:/frontend
+  environment:
+    NODE_ENV: development
+  ports:
+    - 4200:4200
+  depends_on:
+    - "backend"
+  command: bash -c "cd /frontend && npm i -g @angular/cli && npm start"
+
+
+
+# version: '2'
+# services:
+#  db:
+#   image: mongo:3.4
+#   ports:
+#     - 27017:27017
+#  backend:
+#   image: backend-grifoo
+#   build: ./backend/
+#   links: 
+#     - "db:db" 
+#   environment:
+#     NODE_ENV: development
+#   ports: 
+#     - 3003:3003
+#   depends_on:
+#       - "db"
+#  frontend: 
+#   image: frontend-grifoo
+#   build: ./frontend/.
+#   links: 
+#     - "backend:backend"
+#   environment:
+#     NODE_ENV: development
+#   ports:
+#     - 4200:4200
+#   depends_on:
+#       - "backend"

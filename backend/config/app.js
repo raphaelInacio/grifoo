@@ -1,9 +1,12 @@
+const dotenv = require('dotenv')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('./cors')
 const queryParser = require('express-query-int')
 
 module.exports = function (server) {
+    
+    dotenv.config();
     
     server.use(bodyParser.urlencoded({
         extended: true
@@ -13,7 +16,6 @@ module.exports = function (server) {
     server.use(queryParser())
     
     const router = express.Router()
-    
     
     server.use('/api/v1', router)
     server.use('/api/v1/', require('../api/cliente/clienteController'))
