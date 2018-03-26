@@ -14,14 +14,14 @@ services:
   command: bash -c "cd /backend && npm i -g && SENDGRID_API_KEY=${SENDGRID_API_KEY} npm start"
   depends_on:
       - "db"
-#  frontend: 
-#   image: frontend-grifoo
-#   build: ./frontend/.
-#   links: 
-#     - "backend:backend"
-#   environment:
-#     NODE_ENV: development
-#   ports:
-#     - 4200:4200
-#   depends_on:
-#       - "backend"
+  frontend: 
+   image: frontend-grifoo
+   build: ./frontend/.
+   links: 
+     - "backend:backend"
+   environment:
+     NODE_ENV: development
+   ports:
+     - 4200:4200
+   depends_on:
+       - "backend"
