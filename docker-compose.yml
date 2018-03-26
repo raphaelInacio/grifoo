@@ -8,9 +8,10 @@ services:
     - ./backend:/backend
   environment:
     NODE_ENV: development
+    SENDGRID_API_KEY: 
   ports: 
     - 3003:3003
-  command: bash -c "cd /backend && npm i -g && SENDGRID_API_KEY=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 npm start"
+  command: bash -c "cd /backend && npm i -g && SENDGRID_API_KEY=${SENDGRID_API_KEY} npm start"
   depends_on:
       - "db"
 #  frontend: 
