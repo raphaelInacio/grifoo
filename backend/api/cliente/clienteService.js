@@ -10,11 +10,9 @@ const ClienteService = {
   });
 
   },
-  findById: (id, res) => {
+  findById: (id, callback) => {
     Cliente.findById(id, function(error, cliente) {
-      if(error)
-          res.send(error);
-      res.json(cliente);
+      callback(error, cliente);
   });
 
   },

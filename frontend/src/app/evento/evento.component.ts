@@ -28,7 +28,6 @@ export class EventoComponent implements OnInit {
   public salvarDadosEvento():void {
     
     this.evento = new Evento(
-      
       this.f.form.value.tipoEvento,
       this.f.form.value.outrasInformacoes,
       this.f.form.value.dataHoraDeTermino,

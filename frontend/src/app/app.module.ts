@@ -18,6 +18,7 @@ import { ConfirmacaoComponent } from './confirmacao/confirmacao.component';
 import { SucessoComponent } from './sucesso/sucesso.component';
 import { HomeComponent } from './home/home.component';
 import PedidoService from './pedido/service/pedido.service';
+import { EmpresaComponent } from './empresa/empresa.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import PedidoService from './pedido/service/pedido.service';
     ProgressoComponent,
     ConfirmacaoComponent,
     SucessoComponent,
-    HomeComponent
+    HomeComponent,
+    EmpresaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,21 +1,10 @@
 const Evento = require('./evento')
 
 const EventoService = {
-  findAll: (res) => {
-    Evento.find(function(err, eventos) {
-      if(err)
-          res.send(err);
-      res.json(eventos);
-  });
-
-  },
-  findById: (id, res) => {
-    Evento.findById(id, function(error, evento) {
-      if(error)
-          res.send(error);
-      res.json(evento);
-  });
-
+  findAll: async () => {
+    let todosEventos = await Evento.find();
+    console.log(`Imprimindo todos eventos, ${todosEventos}`)
+    return todosEventos
   },
   save: (evento, res) => {
     
