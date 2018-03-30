@@ -4,6 +4,6 @@ export default class Constants{
     public httpOptions = {
         headers: new HttpHeaders({ 
             'Content-Type': 'application/json',
-            'Authorization': "Basic YWRtaW46YWRtaW4=" })
+            'Authorization': "Basic Z3JpZm9vY2xpZW50Ojlia3FkN2Ri" })
       };
 }
