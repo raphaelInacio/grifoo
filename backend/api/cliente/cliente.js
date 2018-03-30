@@ -1,7 +1,6 @@
 const restFul = require('node-restful')
 const mongoose = restFul.mongoose
 
-
 const cliente = new mongoose.Schema({
     nome: {
         type: String,

@@ -24,22 +24,27 @@ EXPOSE 4200
 
 CMD [ "ng", "serve" ]
 
-#docker build --rm -f Dockerfile -t frontend-grifoo:latest .
-#docker run --rm -d -p 4200:4200 frontend-grifoo:latest
+#Replace Values
+#acrName = grifoocontainer
+#acrServer = grifoocontainer.azurecr.io
 
-#FROM nginx:alpine
 
-#LABEL author="Raphael Inácio"
+#Build Image
+#sudo docker build --rm -f Dockerfile -t frontend-grifoo:latest .
 
-#COPY --from=frontend-grifoo /usr/src/app/dist /usr/share/nginx/html
+#Run Image in Container 
+#sudo docker run --rm -d -p 4200:4200 frontend-grifoo:latest
 
-#EXPOSE 80 4200
+#Tag Image with azure container registry
+#sudo docker tag frontend-grifoo grifoocontainer.azurecr.io/frontend-grifoo:v1
 
-#CMD [ "nginx", "-g", "daemon off;" ]
+#Push Image in azure container registry
+#sudo docker push grifoocontainer.azurecr.io/frontend-grifoo:v1
 
-#Comand build image
-#docker build --rm -f Dockerfile -t frontend-grifoo:latest .
-#docker run --rm -d -p 443:443 -p 80:80 frontend-grifoo:latest
+#List images
+#az acr repository list --name grifoocontainer.azurecr.io --output table
 
+#Show tags
+#az acr repository show-tags --name <acrName> --repository aci-tutorial-app --output table
 
 

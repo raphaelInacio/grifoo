@@ -1,3 +1,4 @@
+
 const restFul = require('node-restful')
 const mongoose = restFul.mongoose
 
@@ -23,5 +24,4 @@ const pedido = new mongoose.Schema({
     }
 })
 
-module.exports = restFul.model('Pedido', pedido)
 module.exports = mongoose.model('Pedido', pedido)
