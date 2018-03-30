@@ -12,11 +12,22 @@ services:
   depends_on:
       - "db"
  frontend: 
-  image: frontend-grifoo
-  build: ./frontend/.
+  image: node:8.1
+  volumes: 
+    - ./frontend:/frontend
+  command: bash -c "cd /frontend && npm i -g && npm start"
   links: 
     - "backend:backend"
   ports:
     - 4200:4200
   depends_on:
       - "backend"
+  # frontend: 
+  #   image: frontend-grifoo
+  #   build: ./frontend/.
+  #   links: 
+  #     - "backend:backend"
+  #   ports:
+  #     - 4200:4200
+  #   depends_on:
+  #       - "backend"
