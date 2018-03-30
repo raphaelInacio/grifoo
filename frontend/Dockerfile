@@ -24,27 +24,30 @@ EXPOSE 4200
 
 CMD [ "ng", "serve" ]
 
-#Replace Values
-#acrName = grifoocontainer
-#acrServer = grifoocontainer.azurecr.io
+#    Replace Values
+#    acrName = grifoocontainer
+#    acrServer = grifoocontainer.azurecr.io
+
+#    Build Image
+#    sudo docker build --rm -f Dockerfile -t frontend-grifoo:latest .
+
+#    Run Image in Container 
+#    sudo docker run --rm -d -p 4200:4200 frontend-grifoo:latest
+
+#    Tag Image with azure container registry
+#     sudo docker tag frontend-grifoo grifoocontainer.azurecr.io/frontend-grifoo:v1
+
+# Push Image in azure container registry
+# sudo docker push grifoocontainer.azurecr.io/frontend-grifoo:v1
+
+# List images
+# az acr repository list --name grifoocontainer.azurecr.io --output table
+
+# Show tags
+# az acr repository show-tags --name <acrName> --repository aci-tutorial-app --output table
+
+# az acr credential show --name grifoocontainer --query "passwords[0].value"
+# az acr show --name grifoocontainer --query loginServer
 
 
-#Build Image
-#sudo docker build --rm -f Dockerfile -t frontend-grifoo:latest .
-
-#Run Image in Container 
-#sudo docker run --rm -d -p 4200:4200 frontend-grifoo:latest
-
-#Tag Image with azure container registry
-#sudo docker tag frontend-grifoo grifoocontainer.azurecr.io/frontend-grifoo:v1
-
-#Push Image in azure container registry
-#sudo docker push grifoocontainer.azurecr.io/frontend-grifoo:v1
-
-#List images
-#az acr repository list --name grifoocontainer.azurecr.io --output table
-
-#Show tags
-#az acr repository show-tags --name <acrName> --repository aci-tutorial-app --output table
-
-
+#az container create --resource-group grifooContainerResourceGroup --name frontend-grifoo --image grifoocontainer.azurecr.io/frontend-grifoo:v1 --cpu 1 --memory 1 --registry-username grifoocontainer --registry-password ZtitBh4Gguk=lq+UcyYu5UnT=HkKHcaI --dns-name-label aci-demo --ports 80:4200

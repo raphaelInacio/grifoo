@@ -8,7 +8,7 @@ services:
     - ./backend:/backend
   ports: 
     - 3003:3003
-  command: bash -c "cd /backend && npm i -g sendgrid && npm i && SENDGRID_API_KEY='' npm start"
+  command: bash -c "cd /backend && npm i -g sendgrid && npm i && npm start --SENDGRID_API_KEY='' --USER_NAME=admin --USER_PASS='admin' "
   depends_on:
       - "db"
  frontend: 

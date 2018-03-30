@@ -5,11 +5,12 @@
   "main": "loader.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "nodemon"
+    "start": "node loader --SENDGRID_API_KEY=test --USER_NAME=admin --USER_PASS=admin"
   },
   "author": "Raphael Inácio da Silva",
   "license": "ISC",
   "dependencies": {
+    "basic-auth-connect": "^1.0.0",
     "body-parser": "^1.17.2",
     "dateformat": "^3.0.3",
     "express": "^4.15.3",
@@ -18,7 +19,8 @@
     "mongoose-paginate": "^5.0.3",
     "node-restful": "^0.2.6",
     "pm2": "^2.4.6",
-    "sendgrid": "^5.2.3"
+    "sendgrid": "^5.2.3",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

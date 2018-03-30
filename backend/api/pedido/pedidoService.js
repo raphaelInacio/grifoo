@@ -7,7 +7,8 @@ const ClienteDao = require('../cliente/cliente')
 const EventoDao = require('../evento/evento')
 const EnderecoDao = require('../endereco/endereco')
 const dateFormat = require('dateformat')
-
+const yargs = require('yargs')
+const args = yargs.argv
 
 const PedidoService = {
 
@@ -51,7 +52,7 @@ const sendEmail = (dadosDoCliente, enderecoDoEvento, dadosDoEvento) => {
   
   console.log(`Inicio do envio de email para ${dadosDoCliente.nome} dono do email ${dadosDoCliente.email}`)
   
-  const mailer = Sendgrid(process.env.SENDGRID_API_KEY);
+  const mailer = Sendgrid(args.SENDGRID_API_KEY);
 
   const email = new helper.Mail();
 
