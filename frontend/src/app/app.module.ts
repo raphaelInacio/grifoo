@@ -19,6 +19,7 @@ import { SucessoComponent } from './sucesso/sucesso.component';
 import { HomeComponent } from './home/home.component';
 import PedidoService from './pedido/service/pedido.service';
 import { EmpresaComponent } from './empresa/empresa.component';
+import { Interceptor } from './interceptors/interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { EmpresaComponent } from './empresa/empresa.component';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
+    Interceptor
   ],
   providers: [ClienteService, PedidoService],
   bootstrap: [AppComponent]

@@ -36,11 +36,6 @@ const PedidoService = {
     let dadosDoEvento = await EventoDao.findById(novoPedido.eventoId)
     let pedidoSalvo = await novoPedido.save();
 
-    console.log(`Cliente ${dadosDoCliente}`)
-    console.log(`Endereço ${enderecoDoEvento}`)
-    console.log(`Evento ${dadosDoEvento}`)
-    console.log(`Pedido salvo, ${pedidoSalvo}`)
-
     sendEmail(dadosDoCliente, enderecoDoEvento, dadosDoEvento)
 
     return pedidoSalvo;
@@ -49,9 +44,13 @@ const PedidoService = {
 }
 
 const sendEmail = (dadosDoCliente, enderecoDoEvento, dadosDoEvento) => {
+  try {
+    
   
   console.log(`Inicio do envio de email para ${dadosDoCliente.nome} dono do email ${dadosDoCliente.email}`)
   
+  console.log(`########## ${args.SENDGRID_API_KEY}`)
+
   const mailer = Sendgrid(args.SENDGRID_API_KEY);
 
   const email = new helper.Mail();
@@ -91,6 +90,11 @@ const sendEmail = (dadosDoCliente, enderecoDoEvento, dadosDoEvento) => {
   });
 
   console.log(`Email enviado com sucesso para ${dadosDoCliente.nome} dono do email ${dadosDoCliente.email}`)
+
+} catch (error) {
+  console.log(`Erro ao enviar email ${error}`)
+}
+
 }
 
 module.exports = PedidoService

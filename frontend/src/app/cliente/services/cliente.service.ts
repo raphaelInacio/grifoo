@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import Cliente from "../../cliente/model/cliente.model";
 import { Injectable } from "@angular/core";
 import Constants from "../../constants/constants"
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export default class ClienteService {
@@ -26,5 +27,10 @@ export default class ClienteService {
         .get<Cliente>( `${this.constantes.url}/clientes/${clienteId}`, 
         this.constantes.httpOptions)
      }
+
+     private handleError(err: HttpErrorResponse | any) {
+        console.error('An error occurred', err);
+        return Observable.throw(err.message || err);
+      }
 
 }

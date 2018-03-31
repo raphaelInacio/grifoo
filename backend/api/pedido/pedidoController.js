@@ -2,7 +2,12 @@ const pedidoService = require('./pedidoService')
 const express = require('express')
 const router = express.Router()
 
-router.get('/pedidos', async function (req, res) {
+const  basicAuth = require('basic-auth-connect');
+const yargs = require('yargs')
+const args = yargs.argv
+
+
+router.get('/pedidos', basicAuth(args.USER_NAME, args.USER_PASS), async function (req, res) {
     try {
         let todosPedidos = await pedidoService.findAll();
         console.log(`Todos os pedidos ${todosPedidos}`)
@@ -21,7 +26,7 @@ router.post('/pedidos', async function (req, res) {
         let novoPedido = {
             "clienteId": req.body.clienteId,
             "eventoId": req.body.eventoId,
-            "ABERTO": 'ABERTO',
+            "status": 'ABERTO',
             "enderecoId": req.body.enderecoId
         }
 
