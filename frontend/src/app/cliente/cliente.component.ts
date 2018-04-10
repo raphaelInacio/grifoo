@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable, ViewChild, Output, EventEmitter } from '@angular/core';
-import ClienteService from './services/cliente.service';
+import { ClienteService } from './services/cliente.service';
 import Cliente from '../cliente/model/cliente.model';
 import {
   catchError,
@@ -17,16 +17,15 @@ import { NgForm } from '@angular/forms';
 
 @Injectable()
 export class ClienteComponent implements OnInit {
+  
+  constructor(private clienteService: ClienteService) {
+  }
 
   @ViewChild('formulario') public formulario: NgForm
-  private cliente: Cliente
-  
   @Output() clienteSalvoEmiter = new EventEmitter<Cliente>();
   public clienteSalvo: boolean = false
   public editarCliente: boolean = false
-
-  constructor(private clienteService: ClienteService) {
-  }
+  private cliente: Cliente
 
   ngOnInit() {
   }

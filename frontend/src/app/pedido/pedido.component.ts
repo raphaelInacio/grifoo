@@ -1,18 +1,9 @@
-import { EnderecoComponent } from './../endereco/endereco.component';
+import {  Injectable, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { catchError, map, tap } from 'rxjs/operators';
+
+import { PedidoService }  from '../pedido/service/pedido.service'
 import { Evento } from './../evento/model/evento.model';
-import {
-  Injectable, Input
-} from '@angular/core';
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import PedidoService from '../pedido/service/pedido.service'
-import {
-  catchError,
-  map,
-  tap
-} from 'rxjs/operators';
 import Endereco from '../endereco/model/endereco.model';
 import Cliente from '../cliente/model/cliente.model';
 import Pedido from './model/pedido.model';
@@ -93,8 +84,10 @@ export class PedidoComponent implements OnInit {
       this.pedido = response
     }))
     .subscribe()
+
     this.sucesso = true
     this.confirmacao = false
+    
     this.atualizarProgresso("Finalização do pedido")
   }
    

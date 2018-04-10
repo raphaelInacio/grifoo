@@ -6,31 +6,30 @@ import Constants from "../../constants/constants"
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export default class ClienteService {
-    
-    private constantes:Constants;
-    
-    constructor(private http: HttpClient,){
+export class ClienteService {
+
+    private constantes: Constants;
+
+    constructor(private http: HttpClient, ) {
         this.constantes = new Constants()
-        
-    }
-    
-    public salvarCliente(cliente:Cliente):Observable<Cliente> {
-       return this.http
-       .post<Cliente>( `${this.constantes.url}/clientes`, 
-       JSON.stringify(cliente), 
-       this.constantes.httpOptions)
     }
 
-    public buscarCliente(clienteId:string):Observable<Cliente> {
+    public salvarCliente(cliente: Cliente): Observable<Cliente> {
         return this.http
-        .get<Cliente>( `${this.constantes.url}/clientes/${clienteId}`, 
-        this.constantes.httpOptions)
-     }
+            .post<Cliente>(`${this.constantes.url}/clientes`,
+                JSON.stringify(cliente),
+                this.constantes.httpOptions)
+    }
 
-     private handleError(err: HttpErrorResponse | any) {
+    public buscarCliente(clienteId: string): Observable<Cliente> {
+        return this.http
+            .get<Cliente>(`${this.constantes.url}/clientes/${clienteId}`,
+                this.constantes.httpOptions)
+    }
+
+    private handleError(err: HttpErrorResponse | any) {
         console.error('An error occurred', err);
         return Observable.throw(err.message || err);
-      }
+    }
 
 }
