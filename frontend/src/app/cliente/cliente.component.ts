@@ -7,18 +7,23 @@ import {
   tap
 } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
+import { ToasterContainerComponent, ToasterModule, ToasterService } from 'angular2-toaster';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
   styleUrls: ['./cliente.component.css'],
-  providers: [ClienteService]
+  providers: [ClienteService, ToasterService],
 })
 
 @Injectable()
 export class ClienteComponent implements OnInit {
-  
-  constructor(private clienteService: ClienteService) {
+
+  constructor(private clienteService: ClienteService,
+    private toasterService: ToasterService) {
   }
 
   @ViewChild('formulario') public formulario: NgForm
@@ -31,18 +36,19 @@ export class ClienteComponent implements OnInit {
   }
 
   public salvarDadosPessoais(): void {
+
     let cliente: Cliente = new Cliente(this.formulario.form.value.nome, this.formulario.form.value.email, this.formulario.form.value.telefone)
+
     this.clienteService
       .salvarCliente(cliente)
       .pipe(tap((clienteResponse: Cliente) => {
-        console.log(`cliente adicioado com sucesso: ${JSON.stringify(clienteResponse)}`)
         this.cliente = clienteResponse
         this.clienteSalvoEmiter.emit(clienteResponse)
       }))
       .subscribe()
   }
 
-  public editarCiente():void{
+  public editarCiente(): void {
     console.log("Clique realiado")
     this.clienteSalvo = false
   }
