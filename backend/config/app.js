@@ -14,6 +14,7 @@ module.exports = function (server) {
 
     console.log(`USER_NAME ${args.USER_NAME}`)
     console.log(`Pass ${args.USER_PASS}`)
+    console.log(`SenGrid ${args.SENDGRID_API_KEY}`)
     
     server.use(basicAuth(args.USER_NAME, args.USER_PASS))
     server.use(bodyParser.json())

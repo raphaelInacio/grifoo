@@ -11,17 +11,31 @@ services:
   command: bash -c "cd /backend && npm i -g sendgrid && npm i && npm start"
   depends_on:
       - "db"
- frontend: 
-  image: node:8.1
+ frontend:
+  image: nginx:1.13
   volumes: 
-    - ./frontend:/frontend
-  command: bash -c "cd /frontend && npm i -g && npm start"
-  links: 
-    - "backend:backend"
-  ports:
-    - 4200:4200
+    - ./frontend/dist/:/usr/share/nginx/html
+    - ./nginx/default.conf:/etc/nginx/confi.d/default.conf
+  ports:  
+    - 80:80
   depends_on:
-      - "backend"
+    - "backend"
+
+
+
+
+    
+#  frontend: 
+#   image: node:8.1
+#   volumes: 
+#     - ./frontend:/frontend
+#   command: bash -c "cd /frontend && npm i -g && npm start"
+#   links: 
+#     - "backend:backend"
+#   ports:
+#     - 4200:4200
+#   depends_on:
+#       - "backend"
   # frontend: 
   #   image: frontend-grifoo
   #   build: ./frontend/.

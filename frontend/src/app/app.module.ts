@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms'
 import {RouterModule } from '@angular/router'
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import {ROUTES} from './app.routes'
 import { Interceptor } from './interceptors/interceptor';
@@ -45,7 +46,7 @@ import { PedidoService }  from './pedido/service/pedido.service';
     RouterModule.forRoot(ROUTES),
     Interceptor
   ],
-  providers: [ClienteService, PedidoService, EventoService, EnderecoService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ClienteService, PedidoService, EventoService, EnderecoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
