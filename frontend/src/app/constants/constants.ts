@@ -1,10 +1,11 @@
 import { HttpHeaders } from '@angular/common/http';
 export default class Constants{
     
-    public url:string = "http://backend:3003/api/v1"
+    public url:string = "http://localhost:3003/api/v1"
     public httpOptions = {
         headers: new HttpHeaders({
-             'Content-Type': 'application/json', 
-             'Authorization': 'Basic Z3JpZm9vY2xpZW50Ojlia3FkN2Ri'})
+             'Content-Type': 'application/json'
+             //,'Authorization': 'Basic YWRtaW46YWRtaW4='
+            })
       };
 }

@@ -2,12 +2,14 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('./cors')
 const queryParser = require('express-query-int')
-const  basicAuth = require('basic-auth-connect');
+const basicAuth = require('basic-auth-connect');
 const yargs = require('yargs')
 const args = yargs.argv
 
 module.exports = function (server) {
-    
+
+    const API_VERSION = "/api/v1"
+
     server.use(bodyParser.urlencoded({
         extended: true
     }))
@@ -15,17 +17,17 @@ module.exports = function (server) {
     console.log(`USER_NAME ${args.USER_NAME}`)
     console.log(`Pass ${args.USER_PASS}`)
     console.log(`SenGrid ${args.SENDGRID_API_KEY}`)
+
+    //server.use(basicAuth(args.USER_NAME, args.USER_PASS))
+    const router = express.Router()
     
-    server.use(basicAuth(args.USER_NAME, args.USER_PASS))
     server.use(bodyParser.json())
     server.use(cors)
     server.use(queryParser())
     
-    const router = express.Router()
-    
-    server.use('/api/v1', router)
-    server.use('/api/v1/', require('../api/cliente/clienteController'))
-    server.use('/api/v1/', require('../api/endereco/enderecoController'))
-    server.use('/api/v1/', require('../api/evento/eventoController'))
-    server.use('/api/v1/', require('../api/pedido/pedidoController'))
+    server.use(API_VERSION, router)
+    server.use(API_VERSION, require('../api/cliente/clienteController'))
+    server.use(API_VERSION, require('../api/endereco/enderecoController'))
+    server.use(API_VERSION, require('../api/evento/eventoController'))
+    server.use(API_VERSION, require('../api/pedido/pedidoController'))
 }

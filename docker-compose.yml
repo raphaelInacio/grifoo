@@ -2,6 +2,8 @@ version: '2'
 services:
  db:
   image: mongo:3.4
+  volumes: 
+  - /data/db:/data/db
  backend:
   image: node:8.1
   volumes: 
@@ -24,7 +26,7 @@ services:
 
 
 
-    
+
 #  frontend: 
 #   image: node:8.1
 #   volumes: 

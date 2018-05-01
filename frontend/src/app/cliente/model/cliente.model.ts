@@ -13,8 +13,8 @@ export default class Cliente {
   }
   
   private validate(): void {
-    if (!this.nome || this.email || this.telefone) {
-      throw new TypeError("Campos obrigatórios não informados")
-    }
+    // if (!this.nome || this.email || this.telefone) {
+    //   throw new TypeError("Campos obrigatórios não informados")
+    // }
   }
 }
