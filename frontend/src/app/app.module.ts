@@ -43,8 +43,7 @@ import { PedidoService }  from './pedido/service/pedido.service';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(ROUTES),
-    Interceptor
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ClienteService, PedidoService, EventoService, EnderecoService],
   bootstrap: [AppComponent]
