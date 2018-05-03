@@ -1,18 +1,28 @@
 version: '2'
+networks: 
+  web:
+  queue:
+  db:
 services:
  db:
   image: mongo:3.4
   volumes: 
-  - /data/db:/data/db
+    - /data/db:/data/db
+  networks: 
+    - db
  backend:
   image: node:8.1
   volumes: 
-    - ./backend:/backend
+   - ./backend:/backend
   ports: 
-    - 3003:3003
+   - 3003:3003
   command: bash -c "cd /backend && npm i -g sendgrid && npm i && npm start"
   depends_on:
-      - "db"
+   - "db"
+  networks: 
+   - web
+   - db
+   - queue
  frontend:
   image: nginx:1.13
   volumes: 
@@ -23,10 +33,14 @@ services:
   depends_on:
     - "backend"
     - "db"
-
-
-
-
+  networks: 
+    - web
+ queue:
+  image: redis
+  networks: 
+   - queue
+  ports: 
+    - 6379:6379
 
 #  frontend: 
 #   image: node:8.1

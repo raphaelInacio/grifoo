@@ -9,6 +9,7 @@ const EnderecoDao = require('../endereco/endereco')
 const dateFormat = require('dateformat')
 const yargs = require('yargs')
 const args = yargs.argv
+const queueService = require('../queue/queueServie')
 
 const PedidoService = {
 
@@ -36,6 +37,8 @@ const PedidoService = {
     let dadosDoEvento = await EventoDao.findById(novoPedido.eventoId)
     let pedidoSalvo = await novoPedido.save();
 
+    queueService.sendToQueue(pedidoSalvo)
+    
     sendEmail(dadosDoCliente, enderecoDoEvento, dadosDoEvento)
 
     return pedidoSalvo;

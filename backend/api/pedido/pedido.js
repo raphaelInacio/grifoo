@@ -20,7 +20,7 @@ const pedido = new mongoose.Schema({
         require: true
     },status: {
         type: String,
-        enum: ['ABERTO', 'EMAIL-ENVIADO','FECHADO','CANCELADO']
+        enum: ['QUEUED', 'ERROR', 'EMAIL-ENVIADO','ABERTO','FECHADO','CANCELADO']
     }
 })
 
