@@ -39,7 +39,7 @@ const PedidoService = {
 
     queueService.sendToQueue(pedidoSalvo)
     
-    //sendEmail(dadosDoCliente, enderecoDoEvento, dadosDoEvento)
+    sendEmail(dadosDoCliente, enderecoDoEvento, dadosDoEvento)
 
     return pedidoSalvo;
   }
@@ -73,12 +73,10 @@ const sendEmail = (dadosDoCliente, enderecoDoEvento, dadosDoEvento) => {
   personalization.addSubstitution(new helper.Substitution('%nome%', dadosDoCliente.nome));
   personalization.addSubstitution(new helper.Substitution('%email%', dadosDoCliente.email));
   personalization.addSubstitution(new helper.Substitution('%telefone%', dadosDoCliente.telefone));
-  
-  
-  // personalization.addSubstitution(new helper.Substitution('%endereco%', `${enderecoDoEvento.rua}, ${enderecoDoEvento.numero} - ${enderecoDoEvento.complemento}, ${enderecoDoEvento.bairro}, ${enderecoDoEvento.cidade} - ${enderecoDoEvento.estado}`));
-  // personalization.addSubstitution(new helper.Substitution('%evento%', dadosDoEvento.tipoEvento));
-  // personalization.addSubstitution(new helper.Substitution('%numero-pessoas%', dadosDoEvento.numeroPessoas));
-  // personalization.addSubstitution(new helper.Substitution('%periodo%', `De ${dateFormat(dadosDoEvento.dataHoraDeInicio, 'shortDate')} as ${dateFormat(dadosDoEvento.dataHoraDeInicio, 'isoTime')} até ${dateFormat(dadosDoEvento.dataHoraDeTermino, 'shortDate')} as ${dateFormat(dadosDoEvento.dataHoraDeTermino, 'isoTime')}`));
+  personalization.addSubstitution(new helper.Substitution('%endereco%', `${enderecoDoEvento.rua}, ${enderecoDoEvento.numero} - ${enderecoDoEvento.complemento}, ${enderecoDoEvento.bairro}, ${enderecoDoEvento.cidade} - ${enderecoDoEvento.estado}`));
+  personalization.addSubstitution(new helper.Substitution('%evento%', dadosDoEvento.tipoEvento));
+  personalization.addSubstitution(new helper.Substitution('%numero-pessoas%', dadosDoEvento.numeroPessoas));
+  personalization.addSubstitution(new helper.Substitution('%periodo%', `De ${dateFormat(dadosDoEvento.dataHoraDeInicio, 'shortDate')} as ${dateFormat(dadosDoEvento.dataHoraDeInicio, 'isoTime')} até ${dateFormat(dadosDoEvento.dataHoraDeTermino, 'shortDate')} as ${dateFormat(dadosDoEvento.dataHoraDeTermino, 'isoTime')}`));
 
   email.addPersonalization(personalization);
 

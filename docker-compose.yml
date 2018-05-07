@@ -19,6 +19,7 @@ services:
   command: bash -c "cd /backend && npm i -g sendgrid && npm i && npm start"
   depends_on:
    - "db"
+   - "queue"
   networks: 
    - web
    - db
@@ -41,8 +42,19 @@ services:
    - queue
   ports: 
     - 6379:6379
-
-#  frontend: 
+ worker:
+  image: node:8.1
+  volumes: 
+    - ./worker:/worker
+  command: bash -c "cd /worker && npm i -g --no-optional && npm start"
+  depends_on: 
+    - "db"
+    - "queue"
+  networks: 
+    - db
+    - queue
+   
+ #  frontend: 
 #   image: node:8.1
 #   volumes: 
 #     - ./frontend:/frontend

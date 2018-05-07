@@ -5,7 +5,7 @@
   "main": "loader.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node loader --SENDGRID_API_KEY=test --USER_NAME=test --USER_PASS=test"
+    "start": "node loader --SENDGRID_API_KEY=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 --USER_NAME=test --USER_PASS=test"
   },
   "author": "Raphael Inácio da Silva",
   "license": "ISC",

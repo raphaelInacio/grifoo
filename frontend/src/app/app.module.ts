@@ -24,6 +24,7 @@ import { EnderecoService } from './endereco/service/endereco.service';
 import { EventoService } from './evento/service/evento.service';
 import { ClienteService } from './cliente/services/cliente.service';
 import { PedidoService }  from './pedido/service/pedido.service';
+import { PedidoEmpresaComponent } from './pedido-empresa/pedido-empresa.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { PedidoService }  from './pedido/service/pedido.service';
     ConfirmacaoComponent,
     SucessoComponent,
     HomeComponent,
+    PedidoEmpresaComponent,
   ],
   imports: [
     BrowserModule,

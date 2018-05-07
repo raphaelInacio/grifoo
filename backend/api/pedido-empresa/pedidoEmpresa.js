@@ -21,11 +21,6 @@ const pedido = new mongoose.Schema({
     },status: {
         type: String,
         enum: ['QUEUED', 'ERROR', 'EMAIL-ENVIADO','ABERTO','FECHADO','CANCELADO']
-    },tipoPedido: {
-        type: String,
-        enum: ['EMPRESA', 'EVENTO']
-    },mensagem: {
-        type: String
     }
 })
 

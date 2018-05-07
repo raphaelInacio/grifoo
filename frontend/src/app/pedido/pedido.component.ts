@@ -76,8 +76,8 @@ export class PedidoComponent implements OnInit {
     this.pedido.enderecoId = this.endereco._id
     this.pedido.enderecoId = this.evento._id
     this.pedido.clienteId = this.cliente._id
-    this.pedido.status = "ABERTO"
-
+    this.pedido.tipoPedido = 'EVENTO'
+    
     this.pedidoService.salvarPedido(this.pedido)
     .pipe(tap((response: Pedido) => {
       console.log(`Pedido criado com sucesso: ${JSON.stringify(response)}`)

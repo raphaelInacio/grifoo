@@ -1,0 +1,20 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "Worker para consumo de fila redis e envio de email",
+  "main": "loader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node loader"
+  },
+  "author": "Raphael Inácio",
+  "license": "ISC",
+  "dependencies": {
+    "redis": "^2.8.0",
+    "mongoose": "^4.13.12",
+    "node-restful": "^0.2.6",
+    "pm2": "^2.4.6",
+    "sendgrid": "^5.2.3",
+    "yargs": "^11.0.0"
+  }
+}

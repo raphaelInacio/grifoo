@@ -8,4 +8,6 @@ export default class Pedido {
     public enderecoId:String
     public clienteId:String
     public servicoId:String
+    public tipoPedido:String
+    public mensagem:String
 }
