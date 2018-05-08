@@ -27,7 +27,8 @@ router.post('/pedidos', async function (req, res) {
             "clienteId": req.body.clienteId,
             "eventoId": req.body.eventoId,
             "status": 'ABERTO',
-            "enderecoId": req.body.enderecoId
+            "enderecoId": req.body.enderecoId,
+            "tipoPedido" : req.body.tipoPedido
         }
 
         let pedidoSalvo = await pedidoService.save(novoPedido);

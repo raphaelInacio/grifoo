@@ -29,15 +29,16 @@ const PedidoService = {
 
     novoPedido.clienteId = pedido.clienteId
     novoPedido.eventoId = pedido.eventoId
-    novoPedido.status = 'ABERTO'
+    novoPedido.status = pedido.status
     novoPedido.enderecoId = pedido.enderecoId
+    novoPedido.tipoPedido = pedido.tipoPedido
 
     let dadosDoCliente = await ClienteDao.findById(novoPedido.clienteId);
     let enderecoDoEvento = await EnderecoDao.findById(novoPedido.enderecoId)
     let dadosDoEvento = await EventoDao.findById(novoPedido.eventoId)
     let pedidoSalvo = await novoPedido.save();
 
-    queueService.sendToQueue(pedidoSalvo)
+    queueService.sendToQueue(JSON.stringify(pedidoSalvo))
     
     //sendEmail(dadosDoCliente, enderecoDoEvento, dadosDoEvento)
 

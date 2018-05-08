@@ -24,6 +24,11 @@ services:
    - web
    - db
    - queue
+  environment: 
+   - QUEUE_NAME=grifoo-queue
+   - USER=user
+   - PASS=pass
+   - EMAIL_KEY
  frontend:
   image: nginx:1.13
   volumes: 
@@ -53,24 +58,5 @@ services:
   networks: 
     - db
     - queue
-   
- #  frontend: 
-#   image: node:8.1
-#   volumes: 
-#     - ./frontend:/frontend
-#   command: bash -c "cd /frontend && npm i -g && npm start"
-#   links: 
-#     - "backend:backend"
-#   ports:
-#     - 4200:4200
-#   depends_on:
-#       - "backend"
-  # frontend: 
-  #   image: frontend-grifoo
-  #   build: ./frontend/.
-  #   links: 
-  #     - "backend:backend"
-  #   ports:
-  #     - 4200:4200
-  #   depends_on:
-  #       - "backend"
+  environment: 
+   - QUEUE_NAME=grifoo-queue
