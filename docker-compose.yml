@@ -10,6 +10,8 @@ services:
     - /data/db:/data/db
   networks: 
     - db
+  ports: 
+    - 27017:27017
  backend:
   image: node:8.1
   volumes: 
@@ -26,9 +28,8 @@ services:
    - queue
   environment: 
    - QUEUE_NAME=grifoo-queue
-   - USER=user
-   - PASS=pass
-   - EMAIL_KEY
+   - USER=admin
+   - PASS=admin
  frontend:
   image: nginx:1.13
   volumes: 
@@ -41,6 +42,8 @@ services:
     - "db"
   networks: 
     - web
+  environment: 
+   - URL=http://localhost:3003/api/v1
  queue:
   image: redis
   networks: 
@@ -60,3 +63,4 @@ services:
     - queue
   environment: 
    - QUEUE_NAME=grifoo-queue
+   - EMAIL_KEY=key-6977baed673c6ae35b230ea5f312961a
