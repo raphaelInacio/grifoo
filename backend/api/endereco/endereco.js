@@ -1,5 +1,3 @@
-
-
 const restFul = require('node-restful')
 const mongoose = restFul.mongoose
 

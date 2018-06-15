@@ -6,21 +6,25 @@ const EventoService = {
     console.log(`Imprimindo todos eventos, ${todosEventos}`)
     return todosEventos
   },
+  findById: async (id) => {
+    let evento = await Evento.findById(id);
+    return evento;
+  },
   save: (evento, res) => {
-    
+
     console.log(JSON.stringify(evento))
-    
+
     let novoEvento = new Evento()
 
-    novoEvento.tipoEvento = evento.tipoEvento,
-    novoEvento.outrasInformacoes = evento.outrasInformacoes,
-    novoEvento.dataHoraDeTermino = evento.dataHoraDeTermino,
-    novoEvento.dataHoraDeInicio = evento.dataHoraDeInicio,
+    novoEvento.tipoEvento = evento.tipoEvento
+    novoEvento.outrasInformacoes = evento.outrasInformacoes
+    novoEvento.duracaoEvento = evento.duracaoEvento
+    novoEvento.dataHoraDeInicio = evento.dataHoraDeInicio
     novoEvento.numeroPessoas = evento.numeroPessoas
 
-    novoEvento.save(function(err, evento) {
-      if(err)
-          res.send(err);
+    novoEvento.save(function (err, evento) {
+      if (err)
+        res.send(err);
       res.json(evento);
     });
   }

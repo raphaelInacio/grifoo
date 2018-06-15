@@ -5,7 +5,21 @@
         <h4>Local do Evento</h4>
         <p class="category">Conte-nos qual a localização do evento</p>
         <div class="row">
-          <div class="col-md-5">
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                  <label>CEP</label>
+                  <input type="text" 
+                         minlength="8" 
+                         maxlength="9" 
+                         required
+                         class="form-control" 
+                         placeholder="Informe o CEP" 
+                         ngModel name="cep"
+                         #cep
+                         (blur)="buscarEnderecoPorCep(cep.value)">
+              </div>
+             </div>
+          <!-- <div class="col-md-5">
             <div class="form-group">
               <label>Endereço</label>
               <input type="text" 
@@ -16,8 +30,8 @@
                      required
                      name="endereco">
             </div>
-          </div>
-          <div class="col-md-2">
+          </div> -->
+          <div class="col-md-4 col-sm-12">
             <div class="form-group">
               <label>Numero</label>
               <input type="text" 
@@ -29,7 +43,7 @@
                      name="numero">
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-4 col-sm-12">
             <div class="form-group">
               <label>Complemento</label>
               <input 
@@ -42,7 +56,7 @@
             </div>
           </div>
 
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
               <div class="form-group">
                 <label>Bairro</label>
                 <input 
@@ -55,11 +69,18 @@
                     maxlength="30"
                     name="bairro">
               </div>
-            </div>
+            </div> -->
+
+            <div *ngIf="mostrarEnderecoPorCep">
+            <dl>
+              <dt>Endereço</dt>
+              <dd>{{endereco.rua}}, {{endereco.bairro}}, CEP: {{endereco.cep}}, {{endereco.cidade}}-{{endereco.estado}}</dd>
+            </dl>
+          </div>
         </div>
 
         <div class="row">
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <div class="form-group">
               <label>Cidade</label>
               <input 
@@ -86,19 +107,8 @@
                      maxlength="30"
                      name="estado">
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>CEP</label>
-              <input type="text" 
-                     minlength="8" 
-                     maxlength="9" 
-                     required
-                     class="form-control" 
-                     placeholder="Informe o CEP" 
-                     ngModel name="cep">
-            </div>
-          </div>
+          </div> -->
+
         </div>
         <button class="btn btn-primary btn-round btn-lg pull-right bg-info" type="submit">Continuar</button>
         <div class="clearfix"></div>

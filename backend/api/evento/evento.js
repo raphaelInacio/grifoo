@@ -5,23 +5,23 @@ const mongoose = restFul.mongoose
 const evento = new mongoose.Schema({
     tipoEvento: {
         type: String,
-        require: true
+        require: false
     },
     numeroPessoas: {
-        type: Number,
-        require: true
+        type: String,
+        require: false
     },
     outrasInformacoes: {
         type: String,
-        require: true
+        require: false
     },
-    dataHoraDeTermino: {
+    duracaoEvento: {
         type: String,
-        require: true,
+        require: false,
     },
     dataHoraDeInicio: {
         type: String,
-        require: true,
+        require: false,
     }
 
 })

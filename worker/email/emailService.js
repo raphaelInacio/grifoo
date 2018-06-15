@@ -1,31 +1,41 @@
 const fs = require('fs')
-
-const ClienteDao = require('../repository/cliente')
-const EventoDao = require('../repository/evento')
-const EnderecoDao = require('../repository/endereco')
-const PedidoDao = require('../repository/pedido')
 const EmailSender = require('../email/emailSender')
 const dateFormat = require('dateformat')
+const restUtil = require('../utils/restUtil')
 
 const EmailService = {
 
   enviarEmailEvento: async (novoPedido) => {
 
-    let dadosDoCliente = await ClienteDao.findById(novoPedido.clienteId);
-    let enderecoDoEvento = await EnderecoDao.findById(novoPedido.enderecoId)
-    let dadosDoEvento = await EventoDao.findById(novoPedido.eventoId)
+    console.log(`Enviando email de evento: ${JSON.stringify(novoPedido)}`)
 
-    fs.readFile(__dirname + "/template-evento.html", function (err, html) {
+    let dadosDoCliente = await restUtil.get(`/clientes/${novoPedido.clienteId}`)
+    let enderecoDoEvento = await restUtil.get(`/enderecos/${novoPedido.enderecoId}`)
+    let dadosDoEvento = await restUtil.get(`/eventos/${novoPedido.eventoId}`)
+
+    console.log(JSON.stringify(`Dados do cliente: ${dadosDoCliente}`))
+    console.log(JSON.stringify(`Endereço do evento: ${enderecoDoEvento}`))
+    console.log(JSON.stringify(`Dados do evento: ${dadosDoEvento}`))
+
+    fs.readFile(__dirname + "/template-evento.html", async function (err, html) {
       if (err) throw err;
 
       html = html.toString()
-      html = html.replace(/%nome%/g, dadosDoCliente.nome);
-      html = html.replace(/%email%/g, dadosDoCliente.email);
-      html = html.replace(/%telefone%/g, dadosDoCliente.telefone);
-      html = html.replace(/%endereco%/g, `${enderecoDoEvento.rua}, ${enderecoDoEvento.numero} - ${enderecoDoEvento.complemento}, ${enderecoDoEvento.bairro}, ${enderecoDoEvento.cidade} - ${enderecoDoEvento.estado}`);
-      html = html.replace(/%evento%/g, dadosDoEvento.tipoEvento);
-      html = html.replace(/%numero-pessoas%/g, dadosDoEvento.numeroPessoas);
-      html = html.replace(/%periodo/g, `De ${dateFormat(dadosDoEvento.dataHoraDeInicio, 'shortDate')} as ${dateFormat(dadosDoEvento.dataHoraDeInicio, 'isoTime')} até ${dateFormat(dadosDoEvento.dataHoraDeTermino, 'shortDate')} as ${dateFormat(dadosDoEvento.dataHoraDeTermino, 'isoTime')}`);
+      if (dadosDoCliente !== null) {
+        html = html.replace(/%nome%/g, dadosDoCliente.nome);
+        html = html.replace(/%email%/g, dadosDoCliente.email);
+        html = html.replace(/%telefone%/g, dadosDoCliente.telefone);
+      }
+
+      if (enderecoDoEvento !== null) {
+        html = html.replace(/%endereco%/g, `${enderecoDoEvento.rua}, ${enderecoDoEvento.numero} - ${enderecoDoEvento.complemento}, ${enderecoDoEvento.bairro}, ${enderecoDoEvento.cidade} - ${enderecoDoEvento.estado}`);
+      }
+
+      if (dadosDoEvento !== null) {
+        html = html.replace(/%evento%/g, dadosDoEvento.tipoEvento);
+        html = html.replace(/%numero-pessoas%/g, dadosDoEvento.numeroPessoas);
+        html = html.replace(/%periodo/g, `Total de horas: ${dadosDoEvento.duracaoEvento} com início em ${dateFormat(dadosDoEvento.dataHoraDeInicio, 'shortDate')} as ${dateFormat(dadosDoEvento.dataHoraDeInicio, 'isoTime')}`);
+      }
 
       EmailSender.send(
         "Atendimento Grifoo <contato@grifoo.com>", ["contato.raphaelinacio@gmail.com",
@@ -35,14 +45,7 @@ const EmailService = {
         html.toString())
     });
 
-    let pedido = new PedidoDao()
-    pedido.clienteId = novoPedido.clienteId
-    pedido.eventoId = novoPedido.eventoId
-    pedido.status = novoPedido.status
-    pedido.enderecoId = novoPedido.enderecoId
-    pedido.tipoPedido = novoPedido.tipoPedido
-    pedido.status = 'EMAIL-ENVIADO'
-    pedido.save();
+    novoPedido.status = 'EMAIL-ENVIADO'
   },
   enviarEmailEmpresa: async (novoPedido) => {
 
@@ -52,9 +55,12 @@ const EmailService = {
       if (err) throw err;
 
       html = html.toString()
-      html = html.replace(/%nome%/g, dadosDoCliente.nome);
-      html = html.replace(/%email%/g, dadosDoCliente.email);
-      html = html.replace(/%telefone%/g, dadosDoCliente.telefone);
+
+      if (dadosDoCliente !== null) {
+        html = html.replace(/%nome%/g, dadosDoCliente.nome);
+        html = html.replace(/%email%/g, dadosDoCliente.email);
+        html = html.replace(/%telefone%/g, dadosDoCliente.telefone);
+      }
 
       EmailSender.send(
         "Atendimento Grifoo <contato@grifoo.com>", ["contato.raphaelinacio@gmail.com", dadosDoCliente.email],
@@ -62,14 +68,12 @@ const EmailService = {
         html.toString())
     });
 
-    let pedido = new PedidoDao()
     pedido.clienteId = novoPedido.clienteId
     pedido.eventoId = novoPedido.eventoId
     pedido.status = novoPedido.status
     pedido.enderecoId = novoPedido.enderecoId
     pedido.tipoPedido = novoPedido.tipoPedido
     pedido.status = 'EMAIL-ENVIADO'
-    pedido.save();
 
   }
 }

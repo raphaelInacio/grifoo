@@ -6,36 +6,52 @@
         <p class="category">Conte-nos sobre o tipo de evento que você quer fazer</p>
         <div class="row">
 
-          <div class="col-md-4">
+          <div class="col-md-6 col-sm-12">
             <div class="form-group">
-              <label for="tipoEvento">Tipo do evento</label>
-              <input ngModel name="tipoEvento" required minlength="3" maxlength="20" type="text" class="form-control" placeholder="Ex. Casamento, aniversário infantil, formatura">
+              <label for="tipoEvento">Tipo de evento</label>
+              <select class="form-control" name="tipoEvento" ngModel>
+                <option *ngFor="let itemEvento of tiposDeEvento" [ngValue]="itemEvento">
+                  {{ itemEvento.nome }}
+                </option>
+              </select>
+
             </div>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-6 col-sm-12">
             <div class="form-group">
-              <label>Numero de pessoas</label>
-              <input ngModel name="numeroPessoas" required minlength="1" maxlength="20" type="text" class="form-control" placeholder="Ex: 200">
+              <label>Numero aproximado de convidados</label>
+              <select class="form-control" name="numeroPessoas" ngModel>
+                <option *ngFor="let itemNumeroPessoas of listaConvidadosEvento" [ngValue]="itemNumeroPessoas">
+                  {{ itemNumeroPessoas.nome }}
+                </option>
+              </select>
+
             </div>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-6 col-sm-12">
             <div class="form-group">
-              <label for="dataHoraDeInicio">Data e hora de inicio</label>
-              <input name="dataHoraDeInicio" ngModel required type="datetime-local" class="form-control" placeholder="Ex: 16:00">
+              <label for="duracaoEvento">Duração aproximada em horas</label>
+              <select class="form-control" name="duracaoEvento" ngModel>
+                <option *ngFor="let itemduracaoEvento of listaDuracaoDeEvento" [ngValue]="itemduracaoEvento">
+                  {{ itemduracaoEvento.nome }}
+                </option>
+              </select>
+
             </div>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-6 col-sm-12">
             <div class="form-group">
-              <label for="dataHoraDeTermino">Data e hora de termino</label>
-              <input name="dataHoraDeTermino" ngModel required type="datetime-local" class="form-control" placeholder="Ex: 14/12/2019 ">
+              <label for="dataHoraDeInicio">Data e hora de início</label>
+              <input name="dataHoraDeInicio" ngModel required type="datetime-local" class="form-control" placeholder="Ex: 14/12/2019 ">
             </div>
-          </div>
+          </div> 
+        
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12 col-sm-12">
             <div class="form-group">
               <label>Outras informações</label>
               <textarea ngModel name="outrasInformacoes" rows="5" class="form-control" placeholder="Informe aqui detalhes adicionais do evento que você ache necessário informar"></textarea>

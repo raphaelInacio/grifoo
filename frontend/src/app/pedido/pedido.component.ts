@@ -1,8 +1,8 @@
-import {  Injectable, Input } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { PedidoService }  from '../pedido/service/pedido.service'
+import { PedidoService } from '../pedido/service/pedido.service'
 import { Evento } from './../evento/model/evento.model';
 import Endereco from '../endereco/model/endereco.model';
 import Cliente from '../cliente/model/cliente.model';
@@ -24,21 +24,21 @@ export class PedidoComponent implements OnInit {
   public cliente: Cliente
   public endereco: Endereco
   public evento: Evento
-  public pedido:Pedido
+  public pedido: Pedido
 
   public progresso: number = 0
   public titulo: String = "Dados do cliente"
-  public progressoStyle:Object = {'width':'0%'}
+  public progressoStyle: Object = { 'width': '0%' }
 
-  public inserirCliente:boolean = true
-  public inserirEvento:boolean = false
-  public inserirEndereco:boolean = false
+  public inserirCliente: boolean = true
+  public inserirEvento: boolean = false
+  public inserirEndereco: boolean = false
   public confirmacao: boolean = false
   public sucesso: boolean = false
-  
+
   ngOnInit() { }
 
-  clienteSalvoEmiter(cliente:Cliente){
+  clienteSalvoEmiter(cliente: Cliente) {
     console.log(`cliente salvo ${JSON.stringify(cliente)}`)
     this.cliente = cliente
     this.inserirCliente = false
@@ -46,13 +46,13 @@ export class PedidoComponent implements OnInit {
     this.atualizarProgresso("Endereço")
   }
 
-  atualizarProgresso(titulo:string){
+  atualizarProgresso(titulo: string) {
     this.progresso = (this.progresso + 25)
-    this.progressoStyle = {'width':`${this.progresso}%`}
+    this.progressoStyle = { 'width': `${this.progresso}%` }
     this.titulo = titulo
   }
 
-  eventoSalvoEmiter(evento:Evento){
+  eventoSalvoEmiter(evento: Evento) {
     console.log(`evento salvo ${JSON.stringify(evento)}`)
     this.evento = evento
     this.inserirEvento = false
@@ -60,7 +60,7 @@ export class PedidoComponent implements OnInit {
     this.atualizarProgresso("Confirmação")
   }
 
-  enderecoSalvoEmiter(endereco:Endereco){
+  enderecoSalvoEmiter(endereco: Endereco) {
     console.log(`endereco salvo ${JSON.stringify(endereco)}`)
     this.endereco = endereco
     this.inserirEndereco = false
@@ -68,27 +68,26 @@ export class PedidoComponent implements OnInit {
     this.atualizarProgresso("Evento")
   }
 
-  public confirmarPedidoEmiter(confirmardo:boolean):void{
-    
+  public confirmarPedidoEmiter(confirmardo: boolean): void {
+
     console.log("Criando pedido..")
-    
+
     this.pedido = new Pedido()
     this.pedido.enderecoId = this.endereco._id
-    this.pedido.enderecoId = this.evento._id
+    this.pedido.eventoId = this.evento._id
     this.pedido.clienteId = this.cliente._id
     this.pedido.tipoPedido = 'EVENTO'
-    
-    this.pedidoService.salvarPedido(this.pedido)
-    .pipe(tap((response: Pedido) => {
-      console.log(`Pedido criado com sucesso: ${JSON.stringify(response)}`)
-      this.pedido = response
-    }))
-    .subscribe()
 
+    this.pedidoService.salvarPedido(this.pedido)
+      .pipe(tap((response: Pedido) => {
+        console.log(`Pedido criado com sucesso: ${JSON.stringify(response)}`)
+        this.pedido = response
+      }))
+      .subscribe()
+      
     this.sucesso = true
     this.confirmacao = false
-    
     this.atualizarProgresso("Finalização do pedido")
   }
-   
+
 }

@@ -24,5 +24,11 @@ export class EnderecoService {
       .get<Endereco>( `${this.constantes.url}/enderecos/${enderecoId}`, 
       this.constantes.httpOptions)
    }
+  
+ public buscarEnderecoPorCep(cep:string):Observable<any> {
+    return this.http
+    .get<Endereco>( `${this.constantes.cepApi}/${cep}/json/`, 
+    this.constantes.httpOptions)
+ }
 
 }

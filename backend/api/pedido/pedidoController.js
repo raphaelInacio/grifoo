@@ -2,7 +2,7 @@ const pedidoService = require('./pedidoService')
 const express = require('express')
 const router = express.Router()
 
-const  basicAuth = require('basic-auth-connect');
+const basicAuth = require('basic-auth-connect');
 const yargs = require('yargs')
 const args = yargs.argv
 
@@ -21,17 +21,9 @@ router.post('/pedidos', async function (req, res) {
 
     try {
 
-        console.log("Salvando um novo pedido...")
+        console.log(`Salvando um novo pedido: ${req.body}`)
 
-        let novoPedido = {
-            "clienteId": req.body.clienteId,
-            "eventoId": req.body.eventoId,
-            "status": 'ABERTO',
-            "enderecoId": req.body.enderecoId,
-            "tipoPedido" : req.body.tipoPedido
-        }
-
-        let pedidoSalvo = await pedidoService.save(novoPedido);
+        let pedidoSalvo = await pedidoService.save(req.body);
 
         return res.json(pedidoSalvo)
 
@@ -40,6 +32,24 @@ router.post('/pedidos', async function (req, res) {
     }
 
 })
+
+router.get('/pedidos/:id', basicAuth(args.USER_NAME, args.USER_PASS), async (req, res) => {
+    try {
+
+        console.log(`Buscando um pedido por id: ${req.params.id}`)
+
+        let id = req.params.id;
+
+        let pedido = await pedidoService.findById(id);
+
+        console.log(`Pedido encontrado: ${pedido}`)
+
+        return res.json(pedido)
+
+    } catch (error) {
+        res.send(error)
+    }
+});
 
 
 module.exports = router

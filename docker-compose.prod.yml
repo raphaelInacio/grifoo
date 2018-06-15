@@ -7,5 +7,5 @@ environment:
   - QUEUE_NAME=grifoo-queue
   - USER=admin
   - PASS=admin
-  - EMAIL_KEY=key-6977baed673c6ae35b230ea5f312961a
+  - EMAIL_KEY=
   - URL=http://18.219.240.83:3003/api/v1

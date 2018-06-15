@@ -3,8 +3,8 @@ export class Evento {
     constructor(
         public tipoEvento: string,
         public outrasInformacoes: string,
-        public dataHoraDeTermino: string,
+        public duracaoEvento: string,
         public dataHoraDeInicio: string,
-        public numeroPessoas: number) 
+        public numeroPessoas: string) 
         {}
 }
