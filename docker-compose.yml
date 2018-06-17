@@ -28,8 +28,8 @@ services:
    - queue
   environment: 
    - QUEUE_NAME=grifoo-queue
-   - USER_NAME=admin
-   - USER_PASS=admin
+   - USER_NAME=
+   - USER_PASS=
  frontend:
   image: nginx:1.13
   volumes: 
@@ -67,6 +67,6 @@ services:
   environment: 
    - QUEUE_NAME=grifoo-queue
    - EMAIL_KEY=
-   - USER_NAME=admin
-   - USER_PASS=Basic YWRtaW46YWRtaW4=
-   - URL=http://backend:3003/api/v1
+   - USER_NAME=
+   - USER_PASS=
+   - URL=
