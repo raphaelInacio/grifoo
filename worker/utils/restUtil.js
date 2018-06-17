@@ -5,7 +5,7 @@ const args = yargs.argv
 const url = args.URL
 
 axios.defaults.baseURL = url;
-axios.defaults.headers.common['Authorization'] = 'Basic YWRtaW46YWRtaW4='
+axios.defaults.headers.common['Authorization'] = `Basic ${args.USER_PASS}`
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const restTemplate = {
