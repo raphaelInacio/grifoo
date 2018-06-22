@@ -3,12 +3,16 @@ const mongoose = require('mongoose');
 const parceiro = new mongoose.Schema({
     nome: {
         type: String,
-        enum: ['EMPRESA', 'PROFISSIONAL']
+        require: true,
+    },
+    tipo: {
+        type: String,
+        enum: ['EMPRESA', 'PROFISSIONAL'],
+        require: true,
     },
     email: {
-        type: Number,
+        type: String,
         require: true,
-        min: 0
     },
     telefone: {
         type: String,
