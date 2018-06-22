@@ -1,7 +1,6 @@
 const redis = require("redis");
 const sub = redis.createClient('redis://queue:6379');
 const pub = redis.createClient('redis://queue:6379');
-let msg_count = 0;
 const yargs = require('yargs')
 const args = yargs.argv
 
