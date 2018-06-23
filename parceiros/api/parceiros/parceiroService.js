@@ -21,7 +21,6 @@ const ParceiroService = {
     }
   },
 
-
   save: async (parceiro) => {
 
     try {

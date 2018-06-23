@@ -12,13 +12,15 @@ services:
     - db
   ports: 
     - 27017:27017
- backend:
+  env_file: 
+   - 'enviroments.env'
+ pedidos:
   image: node:8.1
   volumes: 
-   - ./backend:/backend
+   - ./pedidos:/pedidos
   ports: 
    - 3003:3003
-  command: bash -c "cd /backend && npm i -g sendgrid && npm i && npm start"
+  command: bash -c "cd /pedidos && npm i -g sendgrid && npm i && npm start"
   depends_on:
    - "db"
    - "queue"
@@ -26,10 +28,8 @@ services:
    - web
    - db
    - queue
-  environment: 
-   - QUEUE_NAME=grifoo-queue
-   - USER_NAME=
-   - USER_PASS=
+  env_file: 
+   - 'enviroments.env'
  frontend:
   image: nginx:1.13
   volumes: 
@@ -38,12 +38,12 @@ services:
   ports:  
     - 80:80
   depends_on:
-    - "backend"
+    - "pedidos"
     - "db"
   networks: 
     - web
-  environment: 
-   - URL=http://localhost:3003/api/v1
+  env_file: 
+   - 'enviroments.env'
  queue:
   image: redis
   networks: 
@@ -63,10 +63,6 @@ services:
     - queue
     - web
   links: 
-    - backend:backend
-  environment: 
-   - QUEUE_NAME=grifoo-queue
-   - EMAIL_KEY=
-   - USER_NAME=
-   - USER_PASS=
-   - URL=
+    - pedidos:pedidos
+  env_file: 
+   - 'enviroments.env'
