@@ -1,5 +1,4 @@
 const redis = require("redis");
-
 const enviroment = require('../../config/enviroments')
 const pub = redis.createClient(enviroment.queued);
 

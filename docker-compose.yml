@@ -20,7 +20,23 @@ services:
    - ./pedidos:/pedidos
   ports: 
    - 3003:3003
-  command: bash -c "cd /pedidos && npm i -g sendgrid && npm i && npm start"
+  command: bash -c "cd /pedidos && npm i && npm start"
+  depends_on:
+   - "db"
+   - "queue"
+  networks: 
+   - web
+   - db
+   - queue
+  env_file: 
+   - 'enviroments.env'
+ parceiros:
+  image: node:8.1
+  volumes: 
+   - ./pedidos:/pedidos
+  ports: 
+   - 3004:3003
+  command: bash -c "cd /parceiros && npm i && npm start"
   depends_on:
    - "db"
    - "queue"

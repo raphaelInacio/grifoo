@@ -1,2 +1,2 @@
 require('./config/database')
-require('./config/redis');
+require('./pedidos/pedidosListener');
