@@ -5,7 +5,7 @@
   "main": "loader.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node loader --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --QUEUE_NAME=${QUEUE_NAME}"
+    "start": "node loader --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --QUEUE_NAME=${QUEUE_NAME} --DB=${DB}"
   },
   "author": "Raphael Inácio da Silva",
   "license": "ISC",

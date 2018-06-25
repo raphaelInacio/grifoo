@@ -63,9 +63,11 @@ const EmailService = {
       }
 
       EmailSender.send(
-        "Atendimento Grifoo <contato@grifoo.com>", ["contato.raphaelinacio@gmail.com", dadosDoCliente.email],
+        "Atendimento Grifoo <contato@grifoo.com>", 
+        ["contato.raphaelinacio@gmail.com", dadosDoCliente.email],
         "[Confirmação de Pedido]",
-        html.toString())
+        html.toString());
+
     });
 
     pedido.clienteId = novoPedido.clienteId

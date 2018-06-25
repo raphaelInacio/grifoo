@@ -1,7 +1,7 @@
-const yargs = require('yargs')
-const args = yargs.argv
-const api_key = args.EMAIL_KEY;
+const enviroments = require('../config/enviroments')
+const api_key = enviroments.emailKey
 const domain = 'www.grifoo.com';
+
 const mailgun = require('mailgun-js')({
     apiKey: api_key,
     domain: domain
@@ -9,7 +9,7 @@ const mailgun = require('mailgun-js')({
 
 const EmailSender = {
     send: (from, to, subject, template) => {
-        
+
         let data = {
             from: from,
             to: to,

@@ -1,14 +1,12 @@
-var redis = require("redis");
-const sub = redis.createClient('redis://queue:6379');
-const pub = redis.createClient('redis://queue:6379');
+const redis = require("redis");
+const enviroment = require('./enviroments')
+const sub = redis.createClient(enviroments.queued);
 const EmailService = require('../email/emailService')
-const yargs = require('yargs')
-const args = yargs.argv
 
 sub.on("message", function (channel, message) {
-    
+
     let pedido = JSON.parse(message)
-    
+
     if (pedido.tipoPedido === 'EMPRESA') {
         console.log("ENVIAR EMAIL DE EMPRESA")
         EmailService.enviarEmailEvento(pedido)
@@ -19,5 +17,6 @@ sub.on("message", function (channel, message) {
     }
 });
 
-console.log(`Conectando na fila ${args.QUEUE_NAME}`)
-sub.subscribe(args.QUEUE_NAME);
+console.log(`Conectando na fila ${enviroments.queueName}`)
+
+sub.subscribe(enviroments.queueName);
