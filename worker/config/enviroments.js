@@ -8,7 +8,7 @@ const enviroments = {
     parceiroQueueName: args.PARCEIRO_QUEUE_NAME == undefined ? "parceiro-queued" : args.PARCEIRO_QUEUE_NAME,
     user: args.USER_NAME == undefined ? "admin" : args.USER_NAME,
     pass: args.USER_PASS == undefined ? "admin" : args.USER_PASS,
-    queued: args.QUEUED == undefined ? "redis://localhost:6379" : args.QUEUED,
+    queued: args.REDIS == undefined ? "redis://localhost:6379" : args.REDIS,
     emailKey: args.EMAIL_KEY
 }
 

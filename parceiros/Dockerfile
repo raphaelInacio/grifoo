@@ -1,5 +1,5 @@
 # Create image based on the official Node 6 image from the dockerhub
-FROM node:8.1  as parceiros-domain
+FROM node:8.1  as parceiros-service
 
 ENV HOME=/usr/src/app
 
@@ -19,7 +19,7 @@ RUN npm  install --silent
 COPY . ${HOME}
 
 # Expose the port the app runs in
-EXPOSE 3003
+EXPOSE 3004
 
 # Serve the app
 CMD ["npm", "start"]

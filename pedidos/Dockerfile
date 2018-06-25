@@ -1,5 +1,5 @@
 # Create image based on the official Node 6 image from the dockerhub
-FROM node:8.1  as backend-grifoo
+FROM node:8.1  as pedidos-service
 
 ENV HOME=/usr/src/app
 

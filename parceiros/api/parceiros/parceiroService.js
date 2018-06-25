@@ -35,6 +35,7 @@ const ParceiroService = {
       novoparceiro.mediaValorHora = parceiro.mediaValorHora
       novoparceiro.enderecoId = parceiro.enderecoId
       novoparceiro.cpfCnpj = parceiro.cpfCnpj
+      novoparceiro.documentacao = parceiro.documentacao
 
       let parceiroSalvo = await novoparceiro.save()
       

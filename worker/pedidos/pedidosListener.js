@@ -1,6 +1,6 @@
 const redis = require("redis");
-const enviroment = require('./enviroments')
-const sub = redis.createClient(enviroments.queued);
+const enviroment = require('../config/enviroments')
+const sub = redis.createClient(enviroment.queued);
 const Pedidoservice = require('../pedidos/pedidosService')
 
 sub.on("message", function (channel, message) {
@@ -8,6 +8,6 @@ sub.on("message", function (channel, message) {
     Pedidoservice.enviarEmailConfirmacaoPedido(pedido)
 });
 
-sub.subscribe(enviroments.queueName);
+sub.subscribe(enviroment.queueName);
 
-console.log(`Conectando na fila ${enviroments.queueName}`)
+console.log(`Conectando na fila ${enviroment.queueName}`)

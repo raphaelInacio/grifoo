@@ -1,0 +1,189 @@
+<app-progresso [titulo]="titulo" [progresso]="progresso" [progressoStyle]="progressoStyle"> </app-progresso>
+
+<app-sucesso *ngIf="sucesso"></app-sucesso>
+
+<form novalidate #formulario="ngForm" (ngSubmit)="salvarParceiro()" *ngIf="parceiroFormulario">
+  <div class="section section-basic">
+    <div class="container">
+
+      <div id="perfil" *ngIf="perfil">
+        <h4>Informe o seu perfil</h4>
+        <p class="category">Na Griffo trablhamos tanto com empresas quanto com profissionais prestadores de serviço informe qual melhor perfil
+          para você</p>
+
+        <div class="row text-center">
+          <div class="col-md-6">
+            <a class="btn-lg btn-info btn-simple" (click)="selecionarPerfil('EMPRESA')">Sou empresa prestadora de serviços</a>
+          </div>
+          <div class="col-md-6">
+            <a class="btn-lg btn-info btn-simple" (click)="selecionarPerfil('PROFISSIONAL')"> Sou profissional da area de segurança</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="dados-empresa" *ngIf="perfilEmpresa">
+
+        <h4>Informações de contato</h4>
+
+        <p class="category">Nos diga como podemos entrar em contato sua empresa</p>
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Nome Empresa</label>
+              <input type="text" class="form-control" placeholder="Informe seu nome" ngModel minlength="3" name="nome" required>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="telefone">CNPJ</label>
+              <input type="text" class="form-control" placeholder="Informe o CNPJ" ngModel maxlength="11" minlength="10" required name="cpfCnpj">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" placeholder="Informe seu email" ngModel required minlength="5" name="email">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="telefone">Telefone</label>
+              <input type="text" class="form-control" placeholder="(99) 999999999" ngModel maxlength="11" minlength="10" required name="telefone">
+            </div>
+          </div>
+        </div>
+
+
+        <h4>Sobre sua empresa</h4>
+        <p class="category">Nos conte um pouco sobre sua empresa</p>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Necessidades</label>
+              <textarea ngModel name="mensagem" rows="5" class="form-control" placeholder="Informe aqui detalhes adicionais do evento que você ache necessário informar"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <h4>Dados obrigatórios para prestação de serviços na Griffo</h4>
+
+        <p class="category">Prezamos por empresas qualificadas por isso é de extrema importância que você forneça informações validas nesta etapa</p>
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="telefone">Possui autorização da Policia Federal?</label>
+              <select class="form-control" name="documentacao" ngModel>
+                <option *ngFor="let opcao of opcoes" [ngValue]="opcao">
+                  {{ opcao }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="telefone">Média valor hora por profissional</label>
+              <input type="text" class="form-control" placeholder="80.00" ngModel maxlength="11" minlength="10" required name="valor">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-round btn-lg pull-right bg-info" type="submit">Enviar Cadastro</button>
+
+        <div class="clearfix"></div>
+
+      </div>
+
+
+      <div id="dados-empresa" *ngIf="perfilProfissional">
+
+        <h4>Informações de contato</h4>
+
+        <p class="category">Nos diga como podemos entrar em contato com você</p>
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Nome completo</label>
+              <input type="text" class="form-control" placeholder="Informe seu nome" ngModel minlength="3" name="nome" required>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="telefone">CPF</label>
+              <input type="text" class="form-control" placeholder="Informe o CPF" ngModel maxlength="11" minlength="11" required name="cpfCnpj">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" placeholder="Informe seu email" ngModel required minlength="5" name="email">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="telefone">Telefone</label>
+              <input type="text" class="form-control" placeholder="(99) 999999999" ngModel maxlength="11" minlength="10" required name="telefone">
+            </div>
+          </div>
+
+        </div>
+
+        <h4>Sobre você</h4>
+        <p class="category">Nos conte um pouco sobre suas experiências</p>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Experiências profissionais</label>
+              <textarea ngModel name="mensagem" rows="5" class="form-control" placeholder="Informe aqui detalhes adicionais do evento que você ache necessário informar"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <h4>Dados obrigatórios para prestação de serviços na Griffo</h4>
+
+        <p class="category">Prezamos por profissionais e empresas qualificadas e autorizadas, é de extrema importância que você como pessoa fisica
+          ou empresa forneça informações verdadeiras nesta etapa</p>
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="telefone">Possui Carteira Nacional de Vigilante?</label>
+              <select class="form-control" name="documentacao" ngModel>
+                <option *ngFor="let opcao of opcoes" [ngValue]="opcao">
+                  {{ opcao }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="telefone">Média valor hora</label>
+              <input type="text" class="form-control" placeholder="80.00" ngModel maxlength="11" minlength="10" required name="valor">
+            </div>
+          </div>
+
+        </div>
+
+        <button class="btn btn-primary btn-round btn-lg pull-right bg-info" type="submit">Continuar</button>
+
+        <div class="clearfix"></div>
+      </div>
+
+
+    </div>
+  </div>
+</form>

@@ -1,5 +1,5 @@
 const redis = require("redis");
-const enviroment = require('./enviroments')
+const enviroments = require('../config/enviroments')
 const sub = redis.createClient(enviroments.queued);
 const ParceirosService = require('../pedidos/pedidosService')
 
@@ -9,8 +9,5 @@ sub.on("message", function (channel, message) {
 });
 
 sub.subscribe(enviroments.queueName);
-
-
-
 
 console.log(`Conectando na fila ${enviroments.queueName}`)

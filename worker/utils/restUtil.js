@@ -1,6 +1,6 @@
-const unirest = require('unirest')
 const axios = require('axios')
 const yargs = require('yargs')
+const enviroment = require('../config/enviroments')
 const args = yargs.argv
 const url = args.URL
 

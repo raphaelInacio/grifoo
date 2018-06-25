@@ -33,6 +33,10 @@ const parceiro = new mongoose.Schema({
     cpfCnpj: {
         type: String,
         require: true
+    },
+    documentacao: {
+        type: Boolean,
+        require: true
     }
 })
 

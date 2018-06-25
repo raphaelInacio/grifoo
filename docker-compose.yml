@@ -17,10 +17,10 @@ services:
  pedidos:
   image: node:8.1
   volumes: 
-   - ./pedidos:/pedidos
+   - ./pedidos:/app
   ports: 
    - 3003:3003
-  command: bash -c "cd /pedidos && npm i && npm start"
+  command: bash -c "cd /app && npm i -g --no-optional && npm start"
   depends_on:
    - "db"
    - "queue"
@@ -33,10 +33,10 @@ services:
  parceiros:
   image: node:8.1
   volumes: 
-   - ./pedidos:/pedidos
+   - ./parceiros:/app
   ports: 
-   - 3004:3003
-  command: bash -c "cd /parceiros && npm i && npm start"
+   - 3004:3004
+  command: bash -c "cd /app && npm i -g --no-optional && npm start"
   depends_on:
    - "db"
    - "queue"
@@ -55,6 +55,7 @@ services:
     - 80:80
   depends_on:
     - "pedidos"
+    - "parceiros"
     - "db"
   networks: 
     - web
@@ -69,8 +70,8 @@ services:
  worker:
   image: node:8.1
   volumes: 
-    - ./worker:/worker
-  command: bash -c "cd /worker && npm i -g --no-optional && npm start"
+    - ./worker:/app
+  command: bash -c "cd /app && npm i -g --no-optional && npm start"
   depends_on: 
     - "db"
     - "queue"
@@ -80,5 +81,6 @@ services:
     - web
   links: 
     - pedidos:pedidos
+    - parceiros:parceiros
   env_file: 
    - 'enviroments.env'

@@ -7,7 +7,7 @@ const enviroment = require('../../config/enviroments')
 router.post('/parceiros', async function (req, res) {
     try {
 
-        console.log(`Salvando um novo parceiro: ${req.body}`)
+        console.log(`Salvando um novo parceiro: ${JSON.stringify(req.body)}`)
 
         let endereco = await parceiroService.save(req.body)
 
@@ -42,10 +42,10 @@ router.get('/parceiros', basicAuth(enviroment.user, enviroment.pass), async (req
     try {
 
         console.log(`Buscando todos parceiros`)
-        
+
         let enderecos = await parceiroService.findAll();
 
-        console.log(`Todos parceiros: ${enderecos}`)
+        console.log(`Todos parceiros: ${JSON.stringify(enderecos)}`)
 
         return res.json(enderecos)
 
