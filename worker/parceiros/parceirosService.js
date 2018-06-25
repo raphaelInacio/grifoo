@@ -18,7 +18,7 @@ const Parceiroservice = {
       }
 
       EmailSender.send(
-        "Atendimento Grifoo <contato@grifoo.com>", ["contato.raphaelinacio@gmail.com",
+        "Atendimento Grifoo <atendimento@grifoo.com>", ["contato.raphaelinacio@gmail.com",
           novoCadastro.email
         ],
         "[Confirmação de Cadastro]",

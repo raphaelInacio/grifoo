@@ -34,7 +34,7 @@ const Pedidoservice = {
       }
 
       EmailSender.send(
-        "Atendimento Grifoo <contato@grifoo.com>", ["contato.raphaelinacio@gmail.com",
+        "Atendimento Grifoo <atendimento@grifoo.com>", ["contato.raphaelinacio@gmail.com",
           dadosDoCliente.email
         ],
         "[Confirmação de Pedido]",
