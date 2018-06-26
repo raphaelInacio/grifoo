@@ -1,10 +1,4 @@
 const Pedido = require('./pedido')
-const clienteService = require('../cliente/clienteService')
-const Sendgrid = require('sendgrid')
-const helper = require('sendgrid/lib/helpers/mail/mail')
-const dateFormat = require('dateformat')
-const yargs = require('yargs')
-const args = yargs.argv
 const queueService = require('../queue/queueServie')
 
 const PedidoService = {

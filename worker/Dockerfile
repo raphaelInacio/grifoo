@@ -1,5 +1,5 @@
-# Create image based on the official Node 8.1 image from the dockerhub
-FROM node:8.1 as parceiros-service
+# Create image based on the official Node 6 image from the dockerhub
+FROM node:8.1 as worker-service
 
 ENV HOME=/usr/src/app
 
@@ -27,7 +27,7 @@ ENV EMAIL_QUEUE_NAME=email-queued
 
 # Create a directory where our app will be placed
 RUN mkdir -p ${HOME}
-
+ 
 # Change directory so that our commands run inside this new directory
 WORKDIR ${HOME}
 
@@ -40,14 +40,11 @@ RUN npm  install --silent
 # Get all the code needed to run the app
 COPY . ${HOME}
 
-# Expose the port the app runs in
-EXPOSE 3004
-
 # Serve the app
 CMD ["npm", "start"]
 
-# sudo docker build --rm -f Dockerfile -t raphaelinacio/parceiros-service:latest .
+# sudo docker build --rm -f Dockerfile -t raphaelinacio/worker-service:latest .
 
-# sudo docker run --rm -it -p 3004:3004 --network=grifoo_private raphaelinacio/parceiros-service:latest
+# sudo docker run --rm -it -p 3004:3004 --network=grifoo_private raphaelinacio/worker-service:latest
 
-# sudo docker run --rm -it -p 3004:3004 --link db:db raphaelinacio/parceiros-service:latest 
+# sudo docker run --rm -it -p 3004:3004 --link db:db raphaelinacio/worker-service:latest 

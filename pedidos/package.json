@@ -5,7 +5,7 @@
   "main": "loader.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node loader --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --QUEUE_NAME=${QUEUE_NAME} --DB=${DB}"
+    "start": "pm2 start loader --env --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --QUEUE_NAME=${QUEUE_NAME} --DB=${DB}"
   },
   "author": "Raphael Inácio da Silva",
   "license": "ISC",
@@ -20,7 +20,6 @@
     "node-restful": "^0.2.6",
     "pm2": "^2.4.6",
     "redis": "^2.8.0",
-    "sendgrid": "^5.2.3",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
