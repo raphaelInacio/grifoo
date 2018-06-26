@@ -5,7 +5,7 @@
   "main": "loader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start loader --env --PARCEIRO_QUEUE_NAME=${PARCEIRO_QUEUE_NAME} --QUEUE_NAME=${QUEUE_NAME} --EMAIL_KEY=${EMAIL_KEY} --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS_64} --URL=${URL} --DB=${DB} --REDIS=${REDIS}"
+    "start": "node loader --PARCEIRO_QUEUE_NAME=${PARCEIRO_QUEUE_NAME} --QUEUE_NAME=${QUEUE_NAME} --EMAIL_KEY=${EMAIL_KEY} --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS_64} --URL_PEDIDOS=${URL_PEDIDOS} --URL_PARCEIROS=${URL_PARCEIROS} --DB=${DB} --REDIS=${REDIS}"
   },
   "author": "Raphael Inácio",
   "license": "ISC",
