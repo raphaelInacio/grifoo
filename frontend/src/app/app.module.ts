@@ -6,7 +6,6 @@ import {RouterModule } from '@angular/router'
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import {ROUTES} from './app.routes'
-import { Interceptor } from './interceptors/interceptor';
 
 import { AppComponent } from './app.component';
 import { TopoComponent } from './topo/topo.component';
@@ -25,6 +24,9 @@ import { EventoService } from './evento/service/evento.service';
 import { ClienteService } from './cliente/services/cliente.service';
 import { PedidoService }  from './pedido/service/pedido.service';
 import { PedidoEmpresaComponent } from './pedido-empresa/pedido-empresa.component';
+import { ParceiroComponent } from './parceiro/parceiro.component';
+import { ParceiroService } from './parceiro/service/parceiro.service';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { PedidoEmpresaComponent } from './pedido-empresa/pedido-empresa.componen
     SucessoComponent,
     HomeComponent,
     PedidoEmpresaComponent,
+    ParceiroComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,7 @@ import { PedidoEmpresaComponent } from './pedido-empresa/pedido-empresa.componen
     FormsModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ClienteService, PedidoService, EventoService, EnderecoService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ClienteService, PedidoService, EventoService, EnderecoService, ParceiroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

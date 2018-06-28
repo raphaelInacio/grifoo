@@ -8,45 +8,26 @@
           <div class="col-md-5">
             <div class="form-group">
               <label>Nome</label>
-              <input type="text" 
-                     class="form-control" 
-                     placeholder="Informe seu nome" 
-                     ngModel
-                     minlength="3"
-                     name="nome"
-                     required>
+              <input type="text" class="form-control" placeholder="Informe seu nome" ngModel minlength="3" name="nome" required>
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label>Email</label>
-              <input type="text" 
-                     class="form-control" 
-                     placeholder="Informe seu email" 
-                     ngModel
-                     required
-                     minlength="5"
-                     name="email">
+              <input type="text" class="form-control" placeholder="Informe seu email" ngModel required minlength="5" name="email">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="exampleInputEmail1">Telefone</label>
-              <input type="text" 
-                     class="form-control" 
-                     placeholder="(99) 999999999"
-                     ngModel
-                     maxlength="11"
-                     minlength="10"
-                     required 
-                     name="telefone"
-                     [disabled]="clienteSalvo">
+              <input type="text" class="form-control" placeholder="(99) 999999999" ngModel maxlength="11" minlength="10" required name="telefone"
+                [disabled]="clienteSalvo">
             </div>
           </div>
         </div>
 
         <div>
-          
+
         </div>
         <button class="btn btn-primary btn-round btn-lg pull-right bg-info" type="submit">Continuar</button>
 

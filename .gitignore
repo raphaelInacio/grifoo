@@ -1,2 +1,4 @@
 sendgrid.env
 docker-compose.prod.yml
+./enviroments.env
+enviroments.env

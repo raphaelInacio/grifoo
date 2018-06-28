@@ -5,7 +5,7 @@
   "main": "loader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node loader --QUEUE_NAME=${QUEUE_NAME} --EMAIL_KEY=${EMAIL_KEY} --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --URL=${URL}"
+    "start": "node loader --PARCEIRO_QUEUE_NAME=${PARCEIRO_QUEUE_NAME} --QUEUE_NAME=${QUEUE_NAME} --EMAIL_KEY=${EMAIL_KEY} --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS_64} --URL_PEDIDOS=${URL_PEDIDOS} --URL_PARCEIROS=${URL_PARCEIROS} --DB=${DB} --REDIS=${REDIS}"
   },
   "author": "Raphael Inácio",
   "license": "ISC",
@@ -14,11 +14,8 @@
     "dateformat": "^3.0.3",
     "mailgun-js": "^0.18.0",
     "mongoose": "^4.13.12",
-    "node-restful": "^0.2.6",
     "pm2": "^2.4.6",
     "redis": "^2.8.0",
-    "sendgrid": "^5.2.3",
-    "unirest": "^0.5.1",
     "yargs": "^11.0.0"
   }
 }

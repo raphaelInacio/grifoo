@@ -1,35 +1,41 @@
 version: '2'
 networks: 
-  web:
-  queue:
-  db:
+  private:
 services:
  db:
   image: mongo:3.4
   volumes: 
     - /data/db:/data/db
   networks: 
-    - db
+    - private
   ports: 
     - 27017:27017
- backend:
-  image: node:8.1
-  volumes: 
-   - ./backend:/backend
+  env_file: 
+   - 'enviroments.env'
+ pedidos:
+  build: ./pedidos
   ports: 
-   - 3003:3003
-  command: bash -c "cd /backend && npm i -g sendgrid && npm i && npm start"
+  - 3003:3003
+  volumes: 
+   - ./pedidos:/app
   depends_on:
    - "db"
    - "queue"
   networks: 
-   - web
-   - db
-   - queue
-  environment: 
-   - QUEUE_NAME=grifoo-queue
-   - USER_NAME=
-   - USER_PASS=
+   - private
+  env_file: 
+   - 'enviroments.env'
+ parceiros:
+  build: ./parceiros 
+  ports: 
+   - 3004:3004
+  depends_on:
+   - "db"
+   - "queue"
+  networks: 
+   - private
+  env_file: 
+   - 'enviroments.env'
  frontend:
   image: nginx:1.13
   volumes: 
@@ -38,35 +44,30 @@ services:
   ports:  
     - 80:80
   depends_on:
-    - "backend"
+    - "pedidos"
+    - "parceiros"
     - "db"
   networks: 
-    - web
-  environment: 
-   - URL=http://localhost:3003/api/v1
+    - private
+  env_file: 
+   - 'enviroments.env'
  queue:
   image: redis
   networks: 
-   - queue
+   - private
   ports: 
     - 6379:6379
  worker:
-  image: node:8.1
+  build: ./worker
   volumes: 
-    - ./worker:/worker
-  command: bash -c "cd /worker && npm i -g --no-optional && npm start"
+    - ./worker:/app
   depends_on: 
     - "db"
     - "queue"
   networks: 
-    - db
-    - queue
-    - web
+    - private
   links: 
-    - backend:backend
-  environment: 
-   - QUEUE_NAME=grifoo-queue
-   - EMAIL_KEY=
-   - USER_NAME=
-   - USER_PASS=
-   - URL=
+    - pedidos:pedidos
+    - parceiros:parceiros
+  env_file: 
+   - 'enviroments.env'

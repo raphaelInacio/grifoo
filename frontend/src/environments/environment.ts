@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  URL_API : 'http://localhost:3003/api/v1'
+  URL_PEDIDOS : 'http://localhost:3003/api/v1',
+  URL_PARCEIROS : 'http://localhost:3004/api/v1',
 };

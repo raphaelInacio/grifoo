@@ -1,0 +1,78 @@
+version: '2'
+networks: 
+  private:
+services:
+ db:
+  image: mongo:3.4
+  volumes: 
+    - /data/db:/data/db
+  networks: 
+    - private
+  ports: 
+    - 27017:27017
+  env_file: 
+   - 'enviroments.env'
+ pedidos:
+  image: node:8.1
+  volumes: 
+   - ./pedidos:/app
+  ports: 
+   - 3003:3003
+  command: bash -c "cd /app && npm i -g --no-optional && npm start"
+  depends_on:
+   - "db"
+   - "queue"
+  networks: 
+   - private
+  env_file: 
+   - 'enviroments.env'
+ parceiros:
+  image: node:8.1
+  volumes: 
+   - ./parceiros:/app
+  ports: 
+   - 3004:3004
+  command: bash -c "cd /app && npm i -g --no-optional && npm start"
+  depends_on:
+   - "db"
+   - "queue"
+  networks: 
+   - private
+  env_file: 
+   - 'enviroments.env'
+ frontend:
+  image: nginx:1.13
+  volumes: 
+    - ./frontend/dist/:/usr/share/nginx/html
+    - ./nginx/default.conf:/etc/nginx/confi.d/default.conf
+  ports:  
+    - 80:80
+  depends_on:
+    - "pedidos"
+    - "parceiros"
+    - "db"
+  networks: 
+    - private
+  env_file: 
+   - 'enviroments.env'
+ queue:
+  image: redis
+  networks: 
+   - private
+  ports: 
+    - 6379:6379
+ worker:
+  image: node:8.1
+  volumes: 
+    - ./worker:/app
+  command: bash -c "cd /app && npm i -g --no-optional && npm start"
+  depends_on: 
+    - "db"
+    - "queue"
+  networks: 
+    - private
+  links: 
+    - pedidos:pedidos
+    - parceiros:parceiros
+  env_file: 
+   - 'enviroments.env'
