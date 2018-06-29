@@ -1,47 +1,31 @@
-const ParceiroDAO = require('./parceiro')
-const queueService = require('../queue/queueServie')
+const UserDAO = require('./user')
+const cryptoUtils = require('../util/cryptoUtil');
 
-const ParceiroService = {
+
+const UserService = {
 
   findById: async (id) => {
     try {
-      let parceiro = ParceiroDAO.findById(id)
-      return parceiro
+      let user = await UserDAO.findById(id)
+      return { _id: user._id, name: user.name, roles: user.roles }
     } catch (error) {
       res.send(error)
     }
   },
 
-  findAll: async () => {
-    try {
-      let parceiros = ParceiroDAO.find()
-      return parceiros
-    } catch (error) {
-      res.send(error)
-    }
-  },
-
-  save: async (parceiro) => {
+  save: async (user) => {
 
     try {
 
-      let novoparceiro = new ParceiroDAO()
+      let novoUser = new UserDAO()
 
-      novoparceiro.nome = parceiro.nome
-      novoparceiro.tipo = parceiro.tipo
-      novoparceiro.email = parceiro.email
-      novoparceiro.telefone = parceiro.telefone
-      novoparceiro.descricao = parceiro.descricao
-      novoparceiro.mediaValorHora = parceiro.mediaValorHora
-      novoparceiro.enderecoId = parceiro.enderecoId
-      novoparceiro.cpfCnpj = parceiro.cpfCnpj
-      novoparceiro.documentacao = parceiro.documentacao
+      novoUser.name = user.name
+      novoUser.password = cryptoUtils.hash(user.password)
+      novoUser.roles = user.roles
 
-      let parceiroSalvo = await novoparceiro.save()
-      
-      await queueService.sendToQueue(JSON.stringify(parceiroSalvo))
+      await novoUser.save()
 
-      return parceiroSalvo;
+      return { message: "User created", _id: user._id, name: user.name, roles: user.roles };
 
     } catch (error) {
       res.send(error)
@@ -49,4 +33,4 @@ const ParceiroService = {
   }
 }
 
-module.exports = ParceiroService
+module.exports = UserService

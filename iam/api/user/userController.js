@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userService = require('./userService')
+const jwtFilter = require('../jwt/jwt')
 
 router.post('/users', async function (req, res) {
     try {
@@ -16,10 +17,10 @@ router.post('/users', async function (req, res) {
     }
 });
 
-router.get('/users/:id', async (req, res) => {
+router.get('/users/:id', jwtFilter, async (req, res) => {
     try {
 
-        console.log(`Buscando um parceiro por id: ${req.params.id}`)
+        console.log(`Buscando um parceiro por id: ${req.params.id} ${JSON.stringify(req.decoded)} `)
 
         let id = req.params.id;
 
@@ -28,24 +29,6 @@ router.get('/users/:id', async (req, res) => {
         console.log(`Parceiro encontrado: ${endereco}`)
 
         return res.json(endereco)
-
-    } catch (error) {
-        res.send(error)
-    }
-
-});
-
-
-router.get('/users', async (req, res) => {
-    try {
-
-        console.log(`Buscando todos users`)
-
-        let enderecos = await userService.findAll();
-
-        console.log(`Todos users: ${JSON.stringify(enderecos)}`)
-
-        return res.json(enderecos)
 
     } catch (error) {
         res.send(error)

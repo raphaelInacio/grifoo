@@ -13,8 +13,6 @@ module.exports = function (server) {
         extended: true
     }))
 
-    express.set('secret', enviroments.secret)
-
     const router = express.Router()
 
     server.use(bodyParser.json())
@@ -22,4 +20,5 @@ module.exports = function (server) {
     server.use(queryParser())
     server.use(API_VERSION, router)
     server.use(API_VERSION, require('../api/user/userController'))
+    server.use(API_VERSION, require('../api/auth/authController'))
 }

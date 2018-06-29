@@ -25,6 +25,8 @@ ENV PARCEIRO_QUEUE_NAME=parceiro-queued
 
 ENV EMAIL_QUEUE_NAME=email-queued
 
+ENV SECRET=admin
+
 # Create a directory where our app will be placed
 RUN mkdir -p ${HOME}
 
