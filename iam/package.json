@@ -1,0 +1,28 @@
+{
+  "name": "iam",
+  "version": "1.0.0",
+  "description": "Api responsável por autenticação e autorização",
+  "main": "loader.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node loader --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --DB=${DB} --QUEUE_NAME=${PARCEIRO_QUEUE_NAME} --REDIS=${REDIS}"
+  },
+  "author": "Raphael Inácio da Silva",
+  "license": "ISC",
+  "dependencies": {
+    "basic-auth-connect": "^1.0.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-query-int": "^1.0.1",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^4.13.12",
+    "mongoose-paginate": "^5.0.3",
+    "node-restful": "^0.2.6",
+    "pm2": "^2.4.6",
+    "redis": "^2.8.0",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
