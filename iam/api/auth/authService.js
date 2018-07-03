@@ -26,7 +26,7 @@ const UserService = {
         expiresIn: 1440
       })
 
-      return { message: 'Authentication Sucess', token: token };
+      return { message: 'Authentication Success', token: token };
 
     } catch (error) {
       throw err;

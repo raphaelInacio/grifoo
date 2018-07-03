@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userService = require('./userService')
-const jwtFilter = require('../jwt/jwt')
+const filter = require('../jwt/jwt')
 
 router.post('/users', async function (req, res) {
     try {
@@ -17,18 +17,18 @@ router.post('/users', async function (req, res) {
     }
 });
 
-router.get('/users/:id', jwtFilter, async (req, res) => {
+router.get('/users/:id', filter.isClient, async (req, res) => {
     try {
 
-        console.log(`Buscando um parceiro por id: ${req.params.id} ${JSON.stringify(req.decoded)} `)
+        console.log(`Buscando um cliente por id: ${req.params.id} ${JSON.stringify(req.payload)} `)
 
         let id = req.params.id;
 
-        let endereco = await userService.findById(id);
+        let cliente = await userService.findById(id);
 
-        console.log(`Parceiro encontrado: ${endereco}`)
+        console.log(`Cliente encontrado: ${JSON.stringify(cliente)}`)
 
-        return res.json(endereco)
+        return res.json(cliente)
 
     } catch (error) {
         res.send(error)
