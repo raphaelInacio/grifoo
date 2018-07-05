@@ -7,7 +7,7 @@ const enviroments = require('./enviroments')
 
 module.exports = function (server) {
 
-    const API_VERSION = "/api/v1"
+    const API_VERSION = "/api/v1/user-accounts"
 
     server.use(bodyParser.urlencoded({
         extended: true

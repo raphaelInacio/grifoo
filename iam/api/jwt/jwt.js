@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken')
 const eniroments = require('../../config/enviroments')
+const RoleTypes = require('../roles/roleTypes')
+const errorMessage = 'Authentication failed, User or Password is Wrong'
+var createError = require('http-errors')
+
 
 const getToken = (req) => {
     return req.headers['authorization'].replace('Bearer', '').trim();
-}
-
-const containsRole = (sholdHave, role) => {
-    sholdHave.filter((item) => { if (role === item) { return true } })
 }
 
 const verify = (req, res, next, role) => {
@@ -18,20 +18,18 @@ const verify = (req, res, next, role) => {
     if (token) {
 
         jwt.verify(token, eniroments.secret, function (err, payload) {
+            let resposeError = new createError.Unauthorized()
             if (err) {
                 return res.json({
                     message: err.message
                 });
             } else {
-                
-                rolesExist = 
-
-                if (containsRole(role, payload.roles)) {
+                if (RoleTypes.validateRole(role, payload.roles[0])) {
                     req.payload = payload;
                     next();
                 } else {
                     return res.status(403).send({
-                        message: 'Authentication failed, user or Password is Wrong'
+                        message: errorMessage
                     });
                 }
             }
@@ -39,22 +37,21 @@ const verify = (req, res, next, role) => {
 
     } else {
         return res.status(403).send({
-            message: 'Authentication failed, user or Password is Wrong'
+            message: errorMessage
         });
     }
 }
 
 const filters = {
     isAdmin: (req, resp, next) => {
-        verify(req, resp, next, ['ADMIN'])
+        verify(req, resp, next, [RoleTypes.role.admistrador])
     },
     isClient: (req, resp, next) => {
-        verify(req, resp, next, ['CLIENTE'])
+        verify(req, resp, next, [RoleTypes.role.cliente])
     },
     isPartner: (req, resp, next) => {
-        verify(req, resp, next, ['PARCEIRO'])
+        verify(req, resp, next, [RoleTypes.role.parceiro])
     }
 }
-
 
 module.exports = filters

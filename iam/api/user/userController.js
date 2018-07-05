@@ -6,21 +6,23 @@ const filter = require('../jwt/jwt')
 router.post('/users', async function (req, res) {
     try {
 
-        console.log(`Salvando um novo parceiro: ${JSON.stringify(req.body)}`)
+        console.log(`Criando um novo user: ${JSON.stringify(req.body)}`)
 
-        let endereco = await userService.save(req.body)
+        let user = await userService.save(req.body)
 
-        return res.json(endereco)
+        return res.json(user)
 
     } catch (error) {
-        res.send(error)
+        return res.status(400).send({
+            message: 'Erro ao criar usuário'
+        });
     }
 });
 
 router.get('/users/:id', filter.isClient, async (req, res) => {
     try {
 
-        console.log(`Buscando um cliente por id: ${req.params.id} ${JSON.stringify(req.payload)} `)
+        console.log(`Buscando um user por id: ${req.params.id} ${JSON.stringify(req.payload)} `)
 
         let id = req.params.id;
 
@@ -31,7 +33,9 @@ router.get('/users/:id', filter.isClient, async (req, res) => {
         return res.json(cliente)
 
     } catch (error) {
-        res.send(error)
+        return res.status(400).send({
+            message: 'Erro ao buscar usuário'
+        });
     }
 
 });

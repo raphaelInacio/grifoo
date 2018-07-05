@@ -26,6 +26,7 @@ import { PedidoService }  from './pedido/service/pedido.service';
 import { PedidoEmpresaComponent } from './pedido-empresa/pedido-empresa.component';
 import { ParceiroComponent } from './parceiro/parceiro.component';
 import { ParceiroService } from './parceiro/service/parceiro.service';
+import { ErrorFormComponent } from './error-form/error-form.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { ParceiroService } from './parceiro/service/parceiro.service';
     HomeComponent,
     PedidoEmpresaComponent,
     ParceiroComponent,
+    ErrorFormComponent,
   ],
   imports: [
     BrowserModule,
