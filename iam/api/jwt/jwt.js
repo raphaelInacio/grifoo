@@ -2,8 +2,6 @@ const jwt = require('jsonwebtoken')
 const eniroments = require('../../config/enviroments')
 const RoleTypes = require('../roles/roleTypes')
 const errorMessage = 'Authentication failed, User or Password is Wrong'
-var createError = require('http-errors')
-
 
 const getToken = (req) => {
     return req.headers['authorization'].replace('Bearer', '').trim();
@@ -18,13 +16,15 @@ const verify = (req, res, next, role) => {
     if (token) {
 
         jwt.verify(token, eniroments.secret, function (err, payload) {
-            let resposeError = new createError.Unauthorized()
             if (err) {
                 return res.json({
                     message: err.message
                 });
             } else {
-                if (RoleTypes.validateRole(role, payload.roles[0])) {
+
+                let userRole = payload.roles.find(item => item == role)
+
+                if (RoleTypes.validateRole(role, userRole)) {
                     req.payload = payload;
                     next();
                 } else {
@@ -51,6 +51,12 @@ const filters = {
     },
     isPartner: (req, resp, next) => {
         verify(req, resp, next, [RoleTypes.role.parceiro])
+    },
+    isAuth: (req, resp, next) => {
+        verify(req, resp, next, [RoleTypes.role.autenticado])
+    },
+    isApp: (req, resp, next) => {
+        verify(req, resp, next, [RoleTypes.role.aplicacao])
     }
 }
 

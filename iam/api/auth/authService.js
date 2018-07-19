@@ -1,25 +1,28 @@
-const UserDAO = require('../user/user')
+const AccountsDAO = require('../accounts/accounts')
 const jwt = require('jsonwebtoken')
 const enviroments = require('../../config/enviroments')
 const cryptoUtils = require('../util/cryptoUtil')
+const roles = require('../roles/roleTypes').role
 
-const UserService = {
+const AuthService = {
   auth: async (auth) => {
     try {
 
-      let user = await UserDAO.findOne({ name: auth.name });
+      let accounts = await AccountsDAO.findOne({ name: auth.name });
 
-      if (!user) {
+      if (!accounts) {
         throw err;
       }
 
-      if (!cryptoUtils.compare(auth.password, user.password)) {
+      if (!cryptoUtils.compare(auth.password, accounts.password)) {
         throw err;
       }
 
+      accounts.roles.push(roles.autenticado)
+      
       let payload = {
-        name: user.name,
-        roles: user.roles
+        name: accounts.name,
+        roles: accounts.roles
       }
 
       let token = jwt.sign(payload, enviroments.secret, {
@@ -35,4 +38,4 @@ const UserService = {
 
 }
 
-module.exports = UserService
+module.exports = AuthService
