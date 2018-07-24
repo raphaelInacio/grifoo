@@ -1,20 +1,23 @@
 {
-  "name": "pedidos-grifoo",
+  "name": "iam",
   "version": "1.0.0",
-  "description": "",
+  "description": "Api responsável por autenticação e autorização",
   "main": "loader.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node loader --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --QUEUE_NAME=${QUEUE_NAME} --DB=${DB} --ORCAMENTO_QUEUE=${ORCAMENTO_QUEUE}"
+    "start": "node loader --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --DB=${DB} --QUEUE_NAME=${PARCEIRO_QUEUE_NAME} --REDIS=${REDIS}"
   },
   "author": "Raphael Inácio da Silva",
   "license": "ISC",
   "dependencies": {
     "basic-auth-connect": "^1.0.0",
+    "bcrypt": "^2.0.1",
     "body-parser": "^1.17.2",
-    "dateformat": "^3.0.3",
     "express": "^4.15.3",
+    "express-bearer-token": "^2.1.1",
     "express-query-int": "^1.0.1",
+    "http-errors": "^1.6.3",
+    "jsonwebtoken": "^8.3.0",
     "mongoose": "^4.13.12",
     "mongoose-paginate": "^5.0.3",
     "node-restful": "^0.2.6",

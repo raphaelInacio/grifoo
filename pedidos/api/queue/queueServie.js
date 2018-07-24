@@ -3,13 +3,18 @@ const sub = redis.createClient('redis://queue:6379');
 const pub = redis.createClient('redis://queue:6379');
 const yargs = require('yargs')
 const args = yargs.argv
+const enviroments = require('../../config/enviroments')
 
-sub.subscribe(args.QUEUE_NAME);
+sub.subscribe(enviroments.queueName);
 
 const QueuService = {
-    sendToQueue:  (message) => {
-        console.log(`Enviando mensagem para fila ${message}, ${args.QUEUE_NAME}`)
-        pub.publish(args.QUEUE_NAME, message);
+    confirmacaoEmail: (message) => {
+        console.log(`Enviando mensagem: ${message} para fila ${enviroments.queueName}`)
+        pub.publish(enviroments.queueName, message);
+    },
+    orcamentos: (message) => {
+        console.log(`Enviando mensagem: ${message} para fila ${enviroments.orcamentoQueue}`)
+        pub.publish(enviroments.orcamentoQueue, message);
     }
 }
 

@@ -36,6 +36,17 @@ services:
    - private
   env_file: 
    - 'enviroments.env'
+ iam:
+  build: ./parceiros 
+  ports: 
+   - 3005:3005
+  depends_on:
+   - "db"
+   - "queue"
+  networks: 
+   - private
+  env_file: 
+   - 'enviroments.env'
  frontend:
   image: nginx:1.13
   volumes: 

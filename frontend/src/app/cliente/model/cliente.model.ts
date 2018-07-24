@@ -11,10 +11,26 @@ export default class Cliente {
     this.telefone = telefone
     this.validate()
   }
-  
+
   private validate(): void {
-    // if (!this.nome || this.email || this.telefone) {
-    //   throw new TypeError("Campos obrigatórios não informados")
-    // }
+
+    let messages:string = ""  
+
+    if (this.nome.length <= 4) {
+      messages = messages.concat("Nome inválido ou não informado, ")
+    }
+
+    if (this.email.length <= 4) {
+      messages = messages.concat("Email inválido ou não informado, ")
+    }
+
+    if (this.telefone.length <= 8) {
+      messages = messages.concat("Telefone inválido ou não informado, ")
+    }
+
+    if(messages.length > 1) {
+      throw new Error(messages)
+    }
+
   }
 }

@@ -25,9 +25,11 @@ const PedidoService = {
 
     let pedidoSalvo = await novoPedido.save();
 
-    queueService.sendToQueue(JSON.stringify(pedidoSalvo))
+    queueService.confirmacaoEmail(JSON.stringify(pedidoSalvo))
+    queueService.orcamentos(JSON.stringify(pedidoSalvo))
 
     return pedidoSalvo;
+    
   }
 }
 
