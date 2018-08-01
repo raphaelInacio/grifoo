@@ -1,10 +1,8 @@
 const axios = require('axios')
-const yargs = require('yargs')
-const args = yargs.argv
-const url = args.URL_PEDIDOS
+const enviroments = require('../config/enviroments')
 
-axios.defaults.baseURL = url;
-axios.defaults.headers.common['Authorization'] = `Basic ${args.USER_PASS}`
+axios.defaults.baseURL = enviroments.urlPedidos;
+axios.defaults.headers.common['Authorization'] = `Basic ${enviroments.pass}`
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const restTemplate = {

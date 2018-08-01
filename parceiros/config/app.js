@@ -2,8 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('./cors')
 const queryParser = require('express-query-int')
-const yargs = require('yargs')
-const args = yargs.argv
 
 module.exports = function (server) {
 
@@ -14,7 +12,7 @@ module.exports = function (server) {
     }))
 
     const router = express.Router()
-    
+
     server.use(bodyParser.json())
     server.use(cors)
     server.use(queryParser())

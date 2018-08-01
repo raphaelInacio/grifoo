@@ -1,13 +1,20 @@
 const redis = require("redis");
 const enviroments = require('../config/enviroments')
-const sub = redis.createClient(enviroments.queued);
+const confirmacaoCadastroParceiroSub = redis.createClient(enviroments.queued);
+const orcamentoParceirosSub = redis.createClient(enviroments.queued);
 const ParceirosService = require('../parceiros/parceirosService')
 
-sub.on("message", function (channel, message) {
+confirmacaoCadastroParceiroSub.on("message", function (channel, message) {
     let cadastroParceiro = JSON.parse(message)
     ParceirosService.enviarConfirmacaoParceiro(cadastroParceiro)
 });
 
-sub.subscribe(enviroments.parceiroQueueName);
+orcamentoParceirosSub.on("message", function (channel, message) {
+    let novoPedido = JSON.parse(message)
+    ParceirosService.enviarEmailOrcamentoEmpresa(novoPedido)
+});
 
-console.log(`Conectando na fila ${enviroments.parceiroQueueName}`)
+confirmacaoCadastroParceiroSub.subscribe(enviroments.parceiroQueueName);
+orcamentoParceirosSub.subscribe(enviroments.orcamentoQueue);
+
+console.log(`Conectado as filas ${enviroments.parceiroQueueName}, ${enviroments.orcamentoQueue}`)
