@@ -50,6 +50,8 @@ const Parceiroservice = {
 
           if (parceiro != null) {
             html = html.replace(/%nome-parceiro%/g, parceiro.nome);
+            html = html.replace(/%parceiro-id%/g, parceiro._id);
+            html = html.replace(/%pedido-id%/g, novoPedido._id);
           }
 
           if (dadosDoCliente !== null) {
