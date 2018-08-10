@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PedidoService } from '../pedido/service/pedido.service';
 import { ParceiroService } from '../parceiro/service/parceiro.service';
@@ -11,6 +11,9 @@ import { Evento } from '../evento/model/evento.model';
 import Parceiro from '../parceiro/model/parceiro.model';
 import { tap } from 'rxjs/operators';
 import Pedido from '../pedido/model/pedido.model';
+import { NgForm } from '@angular/forms';
+import Orcamento from './model/orcamento.model';
+import { OrcamentoParceiroService } from './service/orcamento-parceiro.service';
 
 @Component({
   selector: 'app-orcamento-parceiro',
@@ -23,18 +26,29 @@ export class OrcamentoParceiroComponent implements OnInit {
   pedidoId: string;
   private sub: any;
 
+  @ViewChild('formulario') public formulario: NgForm
+
   public cliente: Cliente
   public endereco: Endereco
   public evento: Evento
   public parceiro: Parceiro
   public pedido: Pedido
+  public sucesso: boolean = false
+  public orcamentoParceiro: boolean = true
+  public mostrarUltimaCotacao: boolean = false
+  public progresso: number = 0
+  public titulo: String = "Enviar cotação"
+  public progressoStyle:Object = {'width':'0%'}
+  public orcamento: Orcamento;
 
-  constructor(private route: ActivatedRoute, 
-    private parceiroService: ParceiroService, 
-    private pedidoService: PedidoService, 
-    private clenteService: ClienteService, 
-    private enderecoService: EnderecoService, 
-    private eventoService: EventoService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private parceiroService: ParceiroService,
+    private pedidoService: PedidoService,
+    private clenteService: ClienteService,
+    private enderecoService: EnderecoService,
+    private eventoService: EventoService,
+    private orcamentoParceiroService: OrcamentoParceiroService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -44,6 +58,12 @@ export class OrcamentoParceiroComponent implements OnInit {
       this.carregarInformacoesParceiro(this.parceiroId)
     });
     console.log(this.route.params)
+  }
+
+  private atualizarProgresso(titulo:string, progresso: number){
+    this.progresso = (this.progresso = progresso)
+    this.progressoStyle = {'width':`${this.progresso}%`}
+    this.titulo = titulo
   }
 
 
@@ -56,11 +76,19 @@ export class OrcamentoParceiroComponent implements OnInit {
         this.buscarCliente(this.pedido.clienteId)
         this.buscarEndereco(this.pedido.enderecoId)
         this.buscarEvento(this.pedido.eventoId)
+        this.obterUltimoOrcamentoParceiro(this.parceiroId, this.pedido.orcamentos)
       }))
       .subscribe()
   }
 
   private carregarInformacoesParceiro(parceiroId: string): void {
+    this.parceiroService.buscarParceiro(parceiroId)
+      .pipe(tap((response: Parceiro) => {
+        console.log(`Buscando cliente: ${JSON.stringify(response)}`)
+        this.parceiro = new Parceiro();
+        this.parceiro = response;
+      }))
+      .subscribe()
   }
 
   private buscarCliente(clienteId: string): void {
@@ -88,6 +116,38 @@ export class OrcamentoParceiroComponent implements OnInit {
         this.evento = new Evento(response.tipoEvento, response.outrasInformacoes, response.duracaoEvento, response.dataHoraDeInicio, response.numeroPessoas)
       }))
       .subscribe()
+  }
+
+  public enviarOrcamento(): void {
+
+    let orcamento = new Orcamento(this.parceiroId, this.formulario.form.value.valor, this.formulario.form.value.mensagem);
+
+    this.orcamentoParceiroService.enviarOrcamento(this.pedidoId, orcamento)
+      .pipe(tap((response: Orcamento) => {
+        console.log(`Orcamento enviado: ${JSON.stringify(response)}`)
+        this.sucesso = true;
+        this.orcamentoParceiro = false
+        this.atualizarProgresso("Aguardando aprovação do cliente", 25)
+      }))
+      .subscribe()
+  }
+
+  private obterUltimoOrcamentoParceiro(parceiroId: string, orcamentos: Array<Orcamento>) {
+    
+    if(orcamentos) {
+
+      orcamentos.forEach((orcamentoItem) => {
+        if (orcamentoItem.parceiroId === parceiroId) {
+          this.orcamento = new Orcamento(orcamentoItem.parceiroId, orcamentoItem.valor, orcamentoItem.mensagem)
+        }
+      });
+      
+      if (this.orcamento) {
+        this.mostrarUltimaCotacao = true;
+        this.atualizarProgresso("Aguardando aprovação do cliente", 25)
+      }
+    }
+
   }
 
 }

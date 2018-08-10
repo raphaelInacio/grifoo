@@ -25,6 +25,7 @@ module.exports = function (server) {
     
     server.use(API_VERSION, router)
     server.use(API_VERSION, require('../api/cliente/clienteController'))
+    server.use(API_VERSION, require('../api/orcamento/orcamentoController'))
     server.use(API_VERSION, require('../api/endereco/enderecoController'))
     server.use(API_VERSION, require('../api/evento/eventoController'))
     server.use(API_VERSION, require('../api/pedido/pedidoController'))

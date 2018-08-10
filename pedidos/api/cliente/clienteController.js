@@ -11,7 +11,7 @@ router.get('/clientes', basicAuth(args.USER_NAME, args.USER_PASS), function (req
 })
 
 router.post('/clientes', function (req, res) {
-    console.log(`Salvando um novo cliente: ${req.body}`)
+    console.log(`Salvando um novo cliente: ${JSON.stringify(req.body)}`)
     clienteService.save(req.body, res)
 })
 

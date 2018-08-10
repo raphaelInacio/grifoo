@@ -2,31 +2,49 @@
 const restFul = require('node-restful')
 const mongoose = restFul.mongoose
 
+const orcamento = new mongoose.Schema({
+    mensagem: {
+        type: String,
+        require: true
+    },
+    valor: {
+        type: String,
+        require: true
+    },
+    parceiroId: {
+        type: String,
+        require: true
+    }
+});
+
 const pedido = new mongoose.Schema({
     dataPedido: {
         type: Date,
         default: Date.now
     },
-    enderecoId: { 
+    enderecoId: {
         type: String,
         require: true
     },
-    clienteId: { 
+    clienteId: {
         type: String,
         require: true
     },
-    eventoId: { 
+    eventoId: {
         type: String,
         require: true
-    },status: {
+    }, status: {
         type: String,
-        enum: ['QUEUED', 'ERROR', 'EMAIL-ENVIADO','ABERTO','FECHADO','CANCELADO']
-    },tipoPedido: {
+        enum: ['QUEUED', 'ERROR', 'EMAIL-ENVIADO', 'ABERTO', 'FECHADO', 'CANCELADO']
+    }, tipoPedido: {
         type: String,
         enum: ['EMPRESA', 'EVENTO']
-    },mensagem: {
-        type: String
-    }
+    }, orcamentos: [orcamento]
 })
+
+
+
+
+
 
 module.exports = mongoose.model('Pedido', pedido)

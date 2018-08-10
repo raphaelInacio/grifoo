@@ -1,6 +1,6 @@
 import { tap } from 'rxjs/operators';
-import { ClienteService } from './../cliente/services/cliente.service';
-import { PedidoService } from './../pedido/service/pedido.service';
+import { ClienteService } from '../cliente/services/cliente.service';
+import { PedidoService } from '../pedido/service/pedido.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import Cliente from '../cliente/model/cliente.model';

@@ -1,13 +1,11 @@
-const pedidoService = require('./pedidoService')
 const express = require('express')
 const router = express.Router()
-
 const basicAuth = require('basic-auth-connect');
-const yargs = require('yargs')
-const args = yargs.argv
+const enviroments = require('../../config/enviroments')
 
+const pedidoService = require('./pedidoService')
 
-router.get('/pedidos', basicAuth(args.USER_NAME, args.USER_PASS), async function (req, res) {
+router.get('/pedidos', basicAuth(enviroments.user, enviroments.pass), async function (req, res) {
     try {
         let todosPedidos = await pedidoService.findAll();
         console.log(`Todos os pedidos ${todosPedidos}`)
@@ -21,7 +19,7 @@ router.post('/pedidos', async function (req, res) {
 
     try {
 
-        console.log(`Salvando um novo pedido: ${req.body}`)
+        console.log(`Salvando um novo pedido: ${JSON.stringify(req.body)}`)
 
         let pedidoSalvo = await pedidoService.save(req.body);
 
@@ -33,7 +31,7 @@ router.post('/pedidos', async function (req, res) {
 
 })
 
-router.get('/pedidos/:id', basicAuth(args.USER_NAME, args.USER_PASS), async (req, res) => {
+router.get('/pedidos/:id', basicAuth(enviroments.user, enviroments.pass), async (req, res) => {
     try {
 
         console.log(`Buscando um pedido por id: ${req.params.id}`)
@@ -50,6 +48,24 @@ router.get('/pedidos/:id', basicAuth(args.USER_NAME, args.USER_PASS), async (req
         res.send(error)
     }
 });
+
+router.post('/pedidos/:id/orcamentos', basicAuth(enviroments.user, enviroments.pass), async function (req, res) {
+
+    try {
+
+        let id = req.params.id;
+        let orcamento = req.body
+
+        console.log(`Salvando um novo orcamento: ${id}, ${orcamento}`)
+
+        let pedidoSalvo = await pedidoService.incluirOrcamento(id, orcamento);
+
+        return res.json(pedidoSalvo)
+    } catch (error) {
+        res.send(error)
+    }
+
+})
 
 
 module.exports = router

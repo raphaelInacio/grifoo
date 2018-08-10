@@ -1,6 +1,6 @@
 import { Component, OnInit, Injectable, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ClienteService } from './services/cliente.service';
-import Cliente from '../cliente/model/cliente.model';
+import Cliente from './model/cliente.model';
 import {
   tap
 } from 'rxjs/operators';

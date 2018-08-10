@@ -1,3 +1,5 @@
+import Orcamento from "../../orcamento-parceiro/model/orcamento.model";
+
 export default class Pedido {
     public id: string
     public status: string
@@ -6,4 +8,5 @@ export default class Pedido {
     public eventoId: string
     public tipoPedido: string
     public mensagem: string
+    public orcamentos: Array<Orcamento>
 }

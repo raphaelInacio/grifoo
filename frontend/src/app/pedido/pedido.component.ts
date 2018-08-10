@@ -2,8 +2,8 @@ import { Injectable, Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { PedidoService } from '../pedido/service/pedido.service'
-import { Evento } from './../evento/model/evento.model';
+import { PedidoService } from './service/pedido.service'
+import { Evento } from '../evento/model/evento.model';
 import Endereco from '../endereco/model/endereco.model';
 import Cliente from '../cliente/model/cliente.model';
 import Pedido from './model/pedido.model';

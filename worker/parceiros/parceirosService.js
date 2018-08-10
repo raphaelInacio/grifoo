@@ -38,9 +38,6 @@ const Parceiroservice = {
 
     let cont = 0
     parceiros.forEach(parceiro => {
-
-      if (cont == 1) {
-
         console.log(`Enviando mail para parceiro, ${parceiro.nome} e email ${parceiro.email}`)
 
         fs.readFile(__dirname + "/template-novo-orcamento.html", async function (err, html) {
@@ -75,10 +72,6 @@ const Parceiroservice = {
             "[Solicitação de orçamento]",
             html.toString())
         });
-
-      }
-
-      cont = cont + 1;
 
     });
 

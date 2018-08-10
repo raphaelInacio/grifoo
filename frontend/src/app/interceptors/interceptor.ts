@@ -19,11 +19,20 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
     this.constantes = new Constants();
     
     console.log('Intercpet start......')
-    const dupReq = req.clone({
-      headers: req.headers.set('Authorization', `Basic ${this.constantes.pass}`),
-    });
-    console.log(`Intercpet end ...... ${JSON.stringify(dupReq)}`)
-    return next.handle(dupReq);
+    
+    if(req.url.indexOf("viacep.com.br") < 0){
+      
+      const dupReq = req.clone({
+        headers: req.headers.set('Authorization', `Basic ${this.constantes.pass}`),
+      });
+
+      console.log(`Intercpet end ...... ${JSON.stringify(dupReq)}`)
+      
+      return next.handle(dupReq);
+    }
+
+    return next.handle(req);
+
   }
 }
 
