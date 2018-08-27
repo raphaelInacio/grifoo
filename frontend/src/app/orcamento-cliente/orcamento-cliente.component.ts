@@ -1,26 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { PedidoService } from '../pedido/service/pedido.service';
-import { ParceiroService } from '../parceiro/service/parceiro.service';
-import { ClienteService } from '../cliente/services/cliente.service';
-import { EnderecoService } from '../endereco/service/endereco.service';
-import { EventoService } from '../evento/service/evento.service';
-import Cliente from '../cliente/model/cliente.model';
-import Endereco from '../endereco/model/endereco.model';
-import { Evento } from '../evento/model/evento.model';
-import Parceiro from '../parceiro/model/parceiro.model';
 import { tap } from 'rxjs/operators';
-import Pedido from '../pedido/model/pedido.model';
+import { EventoService } from './../evento/service/evento.service';
+import { EnderecoService } from './../endereco/service/endereco.service';
+import { ClienteService } from './../cliente/services/cliente.service';
+import { PedidoService } from './../pedido/service/pedido.service';
+import { ParceiroService } from './../parceiro/service/parceiro.service';
+import { ActivatedRoute } from '@angular/router';
+import { Evento } from './../evento/model/evento.model';
 import { NgForm } from '@angular/forms';
-import Orcamento from './model/orcamento.model';
-import { OrcamentoParceiroService } from './service/orcamento-parceiro.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import Endereco from '../endereco/model/endereco.model';
+import Cliente from '../cliente/model/cliente.model';
+import Parceiro from '../parceiro/model/parceiro.model';
+import Pedido from '../pedido/model/pedido.model';
+import Orcamento from '../orcamento-parceiro/model/orcamento.model';
+import { OrcamentoClienteService } from './service/orcamento-cliente.service';
 
 @Component({
-  selector: 'app-orcamento-parceiro',
-  templateUrl: './orcamento-parceiro.component.html',
-  styleUrls: ['./orcamento-parceiro.component.css']
+  selector: 'app-orcamento-cliente',
+  templateUrl: './orcamento-cliente.component.html',
+  styleUrls: ['./orcamento-cliente.component.css']
 })
-export class OrcamentoParceiroComponent implements OnInit {
+export class OrcamentoClienteComponent implements OnInit {
 
   parceiroId: string;
   pedidoId: string;
@@ -40,6 +40,7 @@ export class OrcamentoParceiroComponent implements OnInit {
   public titulo: String = "Enviar cotação"
   public progressoStyle:Object = {'width':'0%'}
   public orcamento: Orcamento;
+  public orcamentos: Array<Orcamento> = new Array<Orcamento>();
 
   constructor(
     private route: ActivatedRoute,
@@ -48,14 +49,13 @@ export class OrcamentoParceiroComponent implements OnInit {
     private clenteService: ClienteService,
     private enderecoService: EnderecoService,
     private eventoService: EventoService,
-    private orcamentoParceiroService: OrcamentoParceiroService) { }
+    private orcamentoClienteService: OrcamentoClienteService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.pedidoId = params['orcamento-id']
-      this.parceiroId = params['parceiro-id'];
+      this.parceiroId = params['cliente-id'];
       this.carregarDadosDoPedido(this.pedidoId)
-      this.carregarInformacoesParceiro(this.parceiroId)
     });
     console.log(this.route.params)
   }
@@ -73,22 +73,29 @@ export class OrcamentoParceiroComponent implements OnInit {
         console.log(`Buscando pedido: ${JSON.stringify(response)}`)
         this.pedido = new Pedido()
         this.pedido = response
+        this.orcamentos = this.pedido.orcamentos
         this.buscarCliente(this.pedido.clienteId)
         this.buscarEndereco(this.pedido.enderecoId)
         this.buscarEvento(this.pedido.eventoId)
-        this.obterUltimoOrcamentoParceiro(this.parceiroId, this.pedido.orcamentos)
+        this.carregarOrcamentos()
       }))
       .subscribe()
   }
 
-  private carregarInformacoesParceiro(parceiroId: string): void {
-    this.parceiroService.buscarParceiro(parceiroId)
+  private carregarOrcamentos(): void {
+
+    this.orcamentos.forEach((orcamentoItem) => {
+
+      this.parceiroService.buscarParceiro(orcamentoItem.parceiroId)
       .pipe(tap((response: Parceiro) => {
         console.log(`Buscando cliente: ${JSON.stringify(response)}`)
         this.parceiro = new Parceiro();
-        this.parceiro = response;
+        orcamentoItem.parceiro = response;
       }))
       .subscribe()
+
+    });
+    
   }
 
   private buscarCliente(clienteId: string): void {
@@ -118,37 +125,36 @@ export class OrcamentoParceiroComponent implements OnInit {
       .subscribe()
   }
 
-  public enviarOrcamento(): void {
+  public selecionarCotacao(orcamento: Orcamento): void {
 
-    let orcamento = new Orcamento(this.parceiroId, this.formulario.form.value.valor, this.formulario.form.value.mensagem);
-
-    this.orcamentoParceiroService.enviarOrcamento(this.pedidoId, orcamento)
-      .pipe(tap((response: Orcamento) => {
-        console.log(`Orcamento enviado: ${JSON.stringify(response)}`)
-        this.sucesso = true;
-        this.orcamentoParceiro = false
-        this.atualizarProgresso("Aguardando aprovação do cliente", 25)
-      }))
-      .subscribe()
+    this.orcamentoClienteService.selecionarOrcamento(this.pedido._id, orcamento.parceiroId)
+    .pipe(tap((response: Pedido) => {
+      console.log(`Buscando evento: ${JSON.stringify(response)}`)
+        console.log(` Orçamento selecionado com sucesso: ${JSON.stringify(response)}`)
+        this.carregarDadosDoPedido(response._id)
+    }))
+    .subscribe()
   }
 
-  private obterUltimoOrcamentoParceiro(parceiroId: string, orcamentos: Array<Orcamento>) {
-    
-    if(orcamentos) {
+  public cancelarCotacao(orcamento: Orcamento): void {
 
-      orcamentos.forEach((orcamentoItem) => {
-        if (orcamentoItem.parceiroId === parceiroId) {
-          this.orcamento = new Orcamento(orcamentoItem.parceiroId, orcamentoItem.valor, orcamentoItem.mensagem)
-          this.orcamento.selecionado = orcamentoItem.selecionado
-        }
-      });
-      
-      if (this.orcamento) {
-        this.mostrarUltimaCotacao = true;
-        this.atualizarProgresso("Aguardando aprovação do cliente", 25)
-      }
-    }
-
+    this.orcamentoClienteService.cancelarOrcamento(this.pedido._id, orcamento.parceiroId)
+    .pipe(tap((response: Pedido) => {
+      console.log(`Buscando evento: ${JSON.stringify(response)}`)
+        console.log(` Orçamento cancelado com sucesso: ${JSON.stringify(response)}`)
+        this.carregarDadosDoPedido(response._id)
+    }))
+    .subscribe()
   }
 
+  public reprovarCotacao(orcamento: Orcamento): void {
+
+    this.orcamentoClienteService.reprovarOrcamento(this.pedido._id, orcamento.parceiroId)
+    .pipe(tap((response: Pedido) => {
+      console.log(`Buscando evento: ${JSON.stringify(response)}`)
+        console.log(` Orçamento reprovado com sucesso: ${JSON.stringify(response)}`)
+        this.carregarDadosDoPedido(response._id)
+    }))
+    .subscribe()
+  }
 }

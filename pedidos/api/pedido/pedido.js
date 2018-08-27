@@ -14,6 +14,9 @@ const orcamento = new mongoose.Schema({
     parceiroId: {
         type: String,
         require: true
+    },
+    selecionado : {
+        type: Boolean
     }
 });
 

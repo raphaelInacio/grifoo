@@ -49,6 +49,69 @@ const PedidoService = {
 
     return pedidoSalvo;
 
+  },
+  selecionarOrcamento: async (pedidoId, parceiroId) => {
+    
+    let pedido = await Pedido.findById(pedidoId);
+    
+    if (pedido.orcamentos) {
+      pedido.orcamentos.forEach(orcamento => {
+        if(orcamento.parceiroId == parceiroId){
+          orcamento.selecionado = true
+        } 
+      });
+    } 
+
+    let pedidoSalvo = await pedido.save();
+
+    // queueService.confirmacaoEmail(JSON.stringify(pedidoSalvo))
+    // queueService.orcamentos(JSON.stringify(pedidoSalvo))
+
+    return pedidoSalvo;
+
+  },
+
+  reprovarOrcamento: async (pedidoId, parceiroId) => {
+    
+    let pedido = await Pedido.findById(pedidoId);
+    
+    if (pedido.orcamentos) {
+      pedido.orcamentos.forEach(orcamento => {
+        if(orcamento.parceiroId == parceiroId){
+          orcamento.selecionado = false
+        } 
+      });
+    } 
+
+    let pedidoSalvo = await pedido.save();
+
+    // queueService.confirmacaoEmail(JSON.stringify(pedidoSalvo))
+    // queueService.orcamentos(JSON.stringify(pedidoSalvo))
+
+    return pedidoSalvo;
+
+  },
+
+
+  cancelarSelecaoOrcamento: async (pedidoId, parceiroId) => {
+    
+    let pedido = await Pedido.findById(pedidoId);
+    
+    if (pedido.orcamentos) {
+      pedido.orcamentos.forEach(orcamento => {
+        if(orcamento.parceiroId == parceiroId){
+          orcamento.selecionado = null
+        } 
+      });
+    } 
+
+    let pedidoSalvo = await pedido.save();
+
+    // queueService.confirmacaoEmail(JSON.stringify(pedidoSalvo))
+    // queueService.orcamentos(JSON.stringify(pedidoSalvo))
+
+    return pedidoSalvo;
+
   }
 }
 

@@ -1,3 +1,4 @@
+import { OrcamentoClienteComponent } from './orcamento-cliente/orcamento-cliente.component';
 import { PedidoEmpresaComponent } from './pedido-empresa/pedido-empresa.component';
 import { Routes } from '@angular/router'
 
@@ -11,5 +12,6 @@ export const ROUTES: Routes = [
     { path: 'para-minha-empresa/pedido', component: PedidoEmpresaComponent },
     { path: 'parceiros', component: ParceiroComponent },
     { path: 'parceiros/:parceiro-id/orcamentos/:orcamento-id', component: OrcamentoParceiroComponent },
+    { path: 'clientes/:cliente-id/orcamentos/:orcamento-id', component: OrcamentoClienteComponent },
     { path: '', component: HomeComponent }
 ]
