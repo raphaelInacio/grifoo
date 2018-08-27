@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import Cliente from "../../cliente/model/cliente.model";
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import Constants from "../../constants/constants"
 import Pedido from "../model/pedido.model"

@@ -25,6 +25,8 @@ services:
    - private
   env_file: 
    - 'enviroments.env'
+  links: 
+   - queue:queue
  parceiros:
   build: ./parceiros 
   ports: 

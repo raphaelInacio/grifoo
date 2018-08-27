@@ -8,6 +8,6 @@ sub.on("message", function (channel, message) {
     Pedidoservice.enviarEmailConfirmacaoPedido(pedido)
 });
 
-sub.subscribe(enviroment.queueName);
+sub.subscribe(enviroment.emailQueueName);
 
-console.log(`Conectando na fila ${enviroment.queueName}`)
+console.log(`Conectando na fila ${enviroment.emailQueueName}`)

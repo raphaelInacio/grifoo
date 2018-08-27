@@ -14,7 +14,7 @@ router.get('/enderecos', basicAuth(args.USER_NAME, args.USER_PASS), function (re
 router.post('/enderecos', async function (req, res) {
     try {
     
-        console.log(`Salvando um novo endereco: ${req.body}`)
+        console.log(`Salvando um novo endereco:  ${JSON.stringify(req.body)}`)
 
         let endereco = await enderecoService.save(req.body)
 

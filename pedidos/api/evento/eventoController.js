@@ -15,7 +15,7 @@ router.get('/eventos', basicAuth(args.USER_NAME, args.USER_PASS), async function
 })
 
 router.post('/eventos', function(req, res){
-  console.log(`Salvando um novo evento: ${req.body}`)
+  console.log(`Salvando um novo evento: ${JSON.stringify(req.body)}`)
   eventoService.save(req.body, res)
 })
 

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import Cliente from "../../cliente/model/cliente.model";
+import Cliente from "../model/cliente.model";
 import { Injectable } from "@angular/core";
 import Constants from "../../constants/constants"
 import { catchError } from 'rxjs/operators';

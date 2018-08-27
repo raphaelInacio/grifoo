@@ -27,6 +27,9 @@ import { PedidoEmpresaComponent } from './pedido-empresa/pedido-empresa.componen
 import { ParceiroComponent } from './parceiro/parceiro.component';
 import { ParceiroService } from './parceiro/service/parceiro.service';
 import { ErrorFormComponent } from './error-form/error-form.component';
+import { OrcamentoParceiroComponent } from './orcamento-parceiro/orcamento-parceiro.component';
+import { Interceptor } from './interceptors/interceptor';
+import { OrcamentoParceiroService } from './orcamento-parceiro/service/orcamento-parceiro.service';
 
 
 @NgModule({
@@ -45,14 +48,16 @@ import { ErrorFormComponent } from './error-form/error-form.component';
     PedidoEmpresaComponent,
     ParceiroComponent,
     ErrorFormComponent,
+    OrcamentoParceiroComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    Interceptor,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ClienteService, PedidoService, EventoService, EnderecoService, ParceiroService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, ClienteService, PedidoService, EventoService, EnderecoService, ParceiroService, OrcamentoParceiroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

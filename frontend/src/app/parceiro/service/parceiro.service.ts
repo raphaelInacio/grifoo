@@ -19,4 +19,8 @@ export class ParceiroService {
         this.constantes.httpOptions)
   }
 
+  public buscarParceiro(parceiroId: string): Observable<Parceiro> {
+    return this.http.get<Parceiro>(`${this.constantes.urlParceiros}/parceiros/${parceiroId}`, this.constantes.httpOptions)
+  }
+
 }

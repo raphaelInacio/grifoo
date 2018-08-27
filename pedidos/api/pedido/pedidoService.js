@@ -29,7 +29,26 @@ const PedidoService = {
     queueService.orcamentos(JSON.stringify(pedidoSalvo))
 
     return pedidoSalvo;
-    
+
+  },
+
+  incluirOrcamento: async (pedidoId, orcamento) => {
+
+    let pedido = await Pedido.findById(pedidoId);
+
+    if (pedido.orcamentos) {
+      pedido.orcamentos.push(orcamento)
+    } else {
+      pedido.orcamentos = [orcamento]
+    }
+
+    let pedidoSalvo = await pedido.save();
+
+    // queueService.confirmacaoEmail(JSON.stringify(pedidoSalvo))
+    // queueService.orcamentos(JSON.stringify(pedidoSalvo))
+
+    return pedidoSalvo;
+
   }
 }
 

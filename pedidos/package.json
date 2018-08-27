@@ -5,7 +5,7 @@
   "main": "loader.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node loader --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --QUEUE_NAME=${QUEUE_NAME} --DB=${DB} --ORCAMENTO_QUEUE=${ORCAMENTO_QUEUE}"
+    "start": "node loader --USER_NAME=${USER_NAME} --USER_PASS=${USER_PASS} --EMAIL_QUEUE_NAME=${EMAIL_QUEUE_NAME} --REDIS=${REDIS} --QUEUE_NAME=${QUEUE_NAME} --DB=${DB} --ORCAMENTO_QUEUE=${ORCAMENTO_QUEUE}"
   },
   "author": "Raphael Inácio da Silva",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "dateformat": "^3.0.3",
     "express": "^4.15.3",
     "express-query-int": "^1.0.1",
+    "log4js": "^3.0.5",
     "mongoose": "^4.13.12",
     "mongoose-paginate": "^5.0.3",
     "node-restful": "^0.2.6",

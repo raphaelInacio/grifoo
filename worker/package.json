@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dateformat": "^3.0.3",
+    "log4js": "^3.0.5",
     "mailgun-js": "^0.18.0",
     "mongoose": "^4.13.12",
     "pm2": "^2.4.6",

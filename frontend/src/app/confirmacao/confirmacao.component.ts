@@ -1,4 +1,4 @@
-import { Evento } from './../evento/model/evento.model';
+import { Evento } from '../evento/model/evento.model';
 import Endereco from '../endereco/model/endereco.model';
 import Cliente from '../cliente/model/cliente.model';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
