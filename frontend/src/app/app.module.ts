@@ -30,6 +30,8 @@ import { ErrorFormComponent } from './error-form/error-form.component';
 import { OrcamentoParceiroComponent } from './orcamento-parceiro/orcamento-parceiro.component';
 import { Interceptor } from './interceptors/interceptor';
 import { OrcamentoParceiroService } from './orcamento-parceiro/service/orcamento-parceiro.service';
+import { OrcamentoClienteComponent } from './orcamento-cliente/orcamento-cliente.component';
+import { OrcamentoClienteService } from './orcamento-cliente/service/orcamento-cliente.service';
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import { OrcamentoParceiroService } from './orcamento-parceiro/service/orcamento
     ParceiroComponent,
     ErrorFormComponent,
     OrcamentoParceiroComponent,
+    OrcamentoClienteComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,7 @@ import { OrcamentoParceiroService } from './orcamento-parceiro/service/orcamento
     Interceptor,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, ClienteService, PedidoService, EventoService, EnderecoService, ParceiroService, OrcamentoParceiroService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, ClienteService, PedidoService, EventoService, EnderecoService, ParceiroService, OrcamentoParceiroService, OrcamentoClienteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

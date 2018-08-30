@@ -21,6 +21,7 @@ const Pedidoservice = {
         html = html.replace(/%nome%/g, dadosDoCliente.nome);
         html = html.replace(/%email%/g, dadosDoCliente.email);
         html = html.replace(/%telefone%/g, dadosDoCliente.telefone);
+        html = html.replace(/%cliente-id%/g, novoPedido.clienteId);
       }
 
       if (enderecoDoEvento !== null) {
@@ -35,9 +36,7 @@ const Pedidoservice = {
 
       EmailSender.send(
         "Atendimento Grifoo <atendimento@grifoo.com>",
-        ["contato.raphaelinacio@gmail.com",
-          dadosDoCliente.email
-        ],
+        [dadosDoCliente.email],
         "[Confirmação de Pedido]",
         html.toString())
     });

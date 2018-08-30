@@ -2,6 +2,7 @@ import Orcamento from "../../orcamento-parceiro/model/orcamento.model";
 
 export default class Pedido {
     public id: string
+    public _id: string
     public status: string
     public enderecoId: string
     public clienteId: string
