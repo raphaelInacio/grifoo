@@ -1,9 +1,7 @@
-<!-- <app-progresso *ngIf="sucesso == false" [titulo]="titulo" [progresso]="progresso" [progressoStyle]="progressoStyle"></app-progresso> -->
-<app-sucesso *ngIf="sucesso"></app-sucesso>
 <div class="section section-basic">
-  <div class="container">
+  <div class="container mt-5-pc">
     <div class="row">
-a      <div id="dados-do-pedido" class="col-md-8 col-sm-12">
+      <div id="dados-do-pedido" class="col-md-8 col-sm-12">
         <h4>Detalhes do Pedido</h4>
         <div>
           <p class="category">Dados pessoais</p>
@@ -44,14 +42,22 @@ a      <div id="dados-do-pedido" class="col-md-8 col-sm-12">
 
       </div>
 
-      <div id="orcamentos" class="col-md-12 col-sm-12">
-        
-        <h4>Orçamentos </h4>
-          
+      <div *ngIf="possuiOrcamentos == false" id="orcamentos" class="col-md-12 col-sm-12">
+        <h4> Status
+          <span class="badge badge-warning">Aguardadndo cotações</span>
+        </h4>
+      </div>
+
+      <div *ngIf="possuiOrcamentos" id="orcamentos" class="col-md-12 col-sm-12">
+
+        <h4> Você possui <span class="badge badge-success">{{orcamentos.length}}</span> orcamentos</h4>
+
         <div *ngFor="let orcamentoItem of orcamentos">
-          <p class="category">{{orcamentoItem.parceiro.nome}} - {{orcamentoItem.parceiro.email}} - 
+          <p class="category">{{orcamentoItem.parceiro.nome}} - {{orcamentoItem.parceiro.email}} -
             <span *ngIf="orcamentoItem.selecionado" class="badge badge-success">Selecionado</span>
-            <span *ngIf="orcamentoItem.selecionado != false && orcamentoItem.selecionado != true" class="badge badge-warning">Em Análise</span>
+            <span *ngIf="orcamentoItem.selecionado != false && orcamentoItem.selecionado != true" class="badge badge-warning">Em
+              Análise
+            </span>
             <span *ngIf="orcamentoItem.selecionado == false" class="badge badge-danger">Reprovado</span>
           </p>
           <dl>
@@ -61,11 +67,14 @@ a      <div id="dados-do-pedido" class="col-md-8 col-sm-12">
               <dt>Detalhes</dt>
               <dd>{{orcamentoItem.mensagem}}</dd>
             </dl>
-            <button *ngIf="orcamentoItem.selecionado != false && orcamentoItem.selecionado != true" class="btn btn-info btn-round" (click)="selecionarCotacao(orcamentoItem)"> Selecionar Cotação</button>
-            <button *ngIf="orcamentoItem.selecionado == true || orcamentoItem.selecionado == false"  class="btn btn-warning btn-round" (click)="cancelarCotacao(orcamentoItem)"> Cancelar Seleção</button>
-            <button *ngIf="orcamentoItem.selecionado == true || orcamentoItem.selecionado != false"   class="btn btn-danger btn-round" (click)="reprovarCotacao(orcamentoItem)"> Reprovar Cotação</button>
+            <button *ngIf="orcamentoItem.selecionado != false && orcamentoItem.selecionado != true" class="btn btn-info btn-round" (click)="selecionarCotacao(orcamentoItem)">
+              Selecionar Cotação</button>
+            <button *ngIf="orcamentoItem.selecionado == true || orcamentoItem.selecionado == false" class="btn btn-warning btn-round"
+              (click)="cancelarCotacao(orcamentoItem)"> Cancelar Seleção</button>
+            <button *ngIf="orcamentoItem.selecionado == true || orcamentoItem.selecionado != false" class="btn btn-danger btn-round"
+              (click)="reprovarCotacao(orcamentoItem)"> Reprovar Cotação</button>
           </dl>
-          <hr>          
+          <hr>
         </div>
       </div>
 

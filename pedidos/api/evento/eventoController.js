@@ -4,6 +4,7 @@ const eventoService = require('./eventoService')
 const  basicAuth = require('basic-auth-connect');
 const yargs = require('yargs')
 const args = yargs.argv
+const logger = require('../../config/logs')
 
 router.get('/eventos', basicAuth(args.USER_NAME, args.USER_PASS), async function(req, res){
   try {
@@ -15,7 +16,7 @@ router.get('/eventos', basicAuth(args.USER_NAME, args.USER_PASS), async function
 })
 
 router.post('/eventos', function(req, res){
-  console.log(`Salvando um novo evento: ${JSON.stringify(req.body)}`)
+  logger.info(`Salvando um novo evento: ${JSON.stringify(req.body)}`)
   eventoService.save(req.body, res)
 })
 
@@ -23,13 +24,13 @@ router.post('/eventos', function(req, res){
 router.get('/eventos/:id', basicAuth(args.USER_NAME, args.USER_PASS), async (req, res) => {
   try {
 
-      console.log("Buscando um evento por id...")
+      logger.info("Buscando um evento por id...")
 
       let id = req.params.id;
 
       let evento = await eventoService.findById(id);
 
-      console.log(`Evento encontrado: ${evento}`)
+      logger.info(`Evento encontrado: ${evento}`)
 
       return res.json(evento)
 

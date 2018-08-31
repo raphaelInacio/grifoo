@@ -1,5 +1,6 @@
 const Cliente = require('./cliente')
 
+const logger = require('../../config/logs')
 
 const ClienteService = {
   findAll: (res) => {
@@ -16,7 +17,7 @@ const ClienteService = {
   },
   save: (cliente, res) => {
 
-    console.log(JSON.stringify(cliente))
+    logger.info(JSON.stringify(cliente))
 
     let novoCliente = new Cliente()
 

@@ -31,6 +31,8 @@ services:
   build: ./parceiros 
   ports: 
    - 3004:3004
+  volumes: 
+   - ./parceiros:/app
   depends_on:
    - "db"
    - "queue"
@@ -39,9 +41,11 @@ services:
   env_file: 
    - 'enviroments.env'
  iam:
-  build: ./parceiros 
+  build: ./iam 
   ports: 
    - 3005:3005
+  volumes: 
+   - ./iam:/app
   depends_on:
    - "db"
    - "queue"
@@ -84,3 +88,4 @@ services:
     - parceiros:parceiros
   env_file: 
    - 'enviroments.env'
+  

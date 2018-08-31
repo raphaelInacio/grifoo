@@ -10,7 +10,7 @@ import { OrcamentoParceiroComponent } from './orcamento-parceiro/orcamento-parce
 export const ROUTES: Routes = [
     { path: 'para-meu-evento/pedido', component: PedidoComponent },
     { path: 'para-minha-empresa/pedido', component: PedidoEmpresaComponent },
-    { path: 'parceiros', component: ParceiroComponent },
+    { path: 'quero-ser-parceiro', component: ParceiroComponent },
     { path: 'parceiros/:parceiro-id/orcamentos/:orcamento-id', component: OrcamentoParceiroComponent },
     { path: 'clientes/:cliente-id/orcamentos/:orcamento-id', component: OrcamentoClienteComponent },
     { path: '', component: HomeComponent }

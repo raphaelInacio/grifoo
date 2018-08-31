@@ -3,13 +3,14 @@ const EmailSender = require('../utils/emailSender')
 const parceiroServiceIntegration = require('./parceiroServiceIntegration')
 const dateFormat = require('dateformat')
 const pedidoServiceIntegration = require('../pedidos/pedidoServiceIntegration')
+const logger = require('../config/logs')
 
 
 const Parceiroservice = {
 
   enviarConfirmacaoParceiro: async (novoCadastro) => {
 
-    console.log(`Enviando email confirmação parceiro: ${JSON.stringify(novoCadastro)}`)
+    logger.info(`Enviando email confirmação parceiro: ${JSON.stringify(novoCadastro)}`)
 
     fs.readFile(__dirname + "/template-parceiro.html", async function (err, html) {
       if (err) throw err;
@@ -20,25 +21,23 @@ const Parceiroservice = {
       }
 
       EmailSender.send(
-        "Atendimento Grifoo <atendimento@grifoo.com>", ["contato.raphaelinacio@gmail.com",
-          novoCadastro.email
-        ],
+        "Atendimento Grifoo <atendimento@grifoo.com>", 
+        [novoCadastro.email],
         "[Confirmação de Cadastro]",
         html.toString())
     });
 
   }, enviarEmailOrcamentoEmpresa: async (novoPedido) => {
 
-    console.log(`Enviando emails de cotações para parceiros: ${JSON.stringify(novoPedido)}`)
+    logger.info(`Enviando emails de cotações para parceiros: ${JSON.stringify(novoPedido)}`)
 
     let dadosDoCliente = await pedidoServiceIntegration.get(`/clientes/${novoPedido.clienteId}`)
     let enderecoDoEvento = await pedidoServiceIntegration.get(`/enderecos/${novoPedido.enderecoId}`)
     let dadosDoEvento = await pedidoServiceIntegration.get(`/eventos/${novoPedido.eventoId}`)
     let parceiros = await parceiroServiceIntegration.get(`/parceiros`)
 
-    let cont = 0
     parceiros.forEach(parceiro => {
-        console.log(`Enviando mail para parceiro, ${parceiro.nome} e email ${parceiro.email}`)
+        logger.info(`Enviando mail para parceiro, ${parceiro.nome} e email ${parceiro.email}`)
 
         fs.readFile(__dirname + "/template-novo-orcamento.html", async function (err, html) {
           if (err) throw err;
@@ -66,9 +65,8 @@ const Parceiroservice = {
           }
 
           EmailSender.send(
-            "Atendimento Grifoo <atendimento@grifoo.com>", ["contato.raphaelinacio@gmail.com",
-              novoPedido.email
-            ],
+            "Atendimento Grifoo <atendimento@grifoo.com>", 
+            [parceiro.email],
             "[Solicitação de orçamento]",
             html.toString())
         });

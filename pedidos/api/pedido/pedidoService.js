@@ -1,5 +1,6 @@
 const Pedido = require('./pedido')
 const queueService = require('../queue/queueServie')
+const logger = require('../../config/logs')
 
 const PedidoService = {
 

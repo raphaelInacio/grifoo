@@ -2,6 +2,7 @@ const pedidoService = require('../pedido/pedidoService')
 const express = require('express')
 const router = express.Router()
 
+const logger = require('../../config/logs')
 const basicAuth = require('basic-auth-connect');
 const enviroments = require('../../config/enviroments')
 
@@ -12,7 +13,7 @@ router.post('/orcamentos/:id', basicAuth(enviroments.user, enviroments.pass), as
         let id = req.params.id;
         let orcamento = req.body
         
-        console.log(`Salvando um novo orcamento: ${id}, ${JSON.stringify(orcamento)}`)
+        logger.info(`Salvando um novo orcamento: ${id}, ${JSON.stringify(orcamento)}`)
 
         let pedidoSalvo = await pedidoService.incluirOrcamento(id, orcamento);
 
@@ -30,7 +31,7 @@ router.patch('/orcamentos/:pedidoId/selecionar/:parceiroId', basicAuth(enviromen
         let pedidoId = req.params.pedidoId;
         let parceiroId = req.params.parceiroId;
         
-        console.log(`Selecionando orcamento: ${pedidoId} do parceiro ${parceiroId} }`)
+        logger.info(`Selecionando orcamento: ${pedidoId} do parceiro ${parceiroId} }`)
 
         let pedidoSalvo = await pedidoService.selecionarOrcamento(pedidoId, parceiroId);
 
@@ -49,7 +50,7 @@ router.patch('/orcamentos/:pedidoId/reprovar/:parceiroId', basicAuth(enviroments
         let pedidoId = req.params.pedidoId;
         let parceiroId = req.params.parceiroId;
         
-        console.log(`Reprovando orcamento: ${pedidoId} do parceiro ${parceiroId} }`)
+        logger.info(`Reprovando orcamento: ${pedidoId} do parceiro ${parceiroId} }`)
 
         let pedidoSalvo = await pedidoService.reprovarOrcamento(pedidoId, parceiroId);
 
@@ -67,7 +68,7 @@ router.patch('/orcamentos/:pedidoId/cancelar-selecao/:parceiroId', basicAuth(env
         let pedidoId = req.params.pedidoId;
         let parceiroId = req.params.parceiroId;
         
-        console.log(`Cancelando orcamento: ${pedidoId} do parceiro ${parceiroId} }`)
+        logger.info(`Cancelando orcamento: ${pedidoId} do parceiro ${parceiroId} }`)
 
         let pedidoSalvo = await pedidoService.cancelarSelecaoOrcamento(pedidoId, parceiroId);
 

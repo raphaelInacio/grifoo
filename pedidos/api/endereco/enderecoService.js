@@ -1,4 +1,5 @@
 const Endereco = require('./endereco')
+const logger = require('../../config/logs')
 
 const EnderecoService = {
   findAll: (res) => {

@@ -1,5 +1,7 @@
 const ParceiroDAO = require('./parceiro')
 const queueService = require('../queue/queueServie')
+const logger = require('../../config/logs')
+
 
 const ParceiroService = {
 

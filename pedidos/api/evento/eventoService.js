@@ -1,9 +1,10 @@
 const Evento = require('./evento')
+const logger = require('../../config/logs')
 
 const EventoService = {
   findAll: async () => {
     let todosEventos = await Evento.find();
-    console.log(`Imprimindo todos eventos, ${todosEventos}`)
+    logger.info(`Imprimindo todos eventos, ${todosEventos}`)
     return todosEventos
   },
   findById: async (id) => {
@@ -12,7 +13,7 @@ const EventoService = {
   },
   save: (evento, res) => {
 
-    console.log(JSON.stringify(evento))
+    logger.info(JSON.stringify(evento))
 
     let novoEvento = new Evento()
 

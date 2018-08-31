@@ -1,6 +1,7 @@
 const enviroments = require('../config/enviroments')
 const api_key = enviroments.emailKey
 const domain = 'www.grifoo.com';
+const logger = require('../config/logs')
 
 const mailgun = require('mailgun-js')({
     apiKey: api_key,
@@ -9,6 +10,8 @@ const mailgun = require('mailgun-js')({
 
 const EmailSender = {
     send: (from, to, subject, template) => {
+        
+        logger.info(`Send email to: ${to}`)
 
         let data = {
             from: from,
@@ -19,7 +22,7 @@ const EmailSender = {
 
         mailgun.messages().send(data, function (err, body) {
             if (err) throw err;
-            console.log(body);
+            logger.info(body);
         });
     }
 }

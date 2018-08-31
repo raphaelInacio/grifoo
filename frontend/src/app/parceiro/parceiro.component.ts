@@ -56,11 +56,7 @@ export class ParceiroComponent implements OnInit {
   }
 
   public salvarParceiro(): void {
-
-    if (this.dadosEstaoValidos()) {
-
       this.preencherRequest()
-
       this.parceiroService.salvarEndereco(this.parceiro)
         .pipe(
           tap((response: Parceiro) => {
@@ -71,7 +67,6 @@ export class ParceiroComponent implements OnInit {
             this.titulo = "Sucesso"
           }))
         .subscribe()
-    }
   }
 
   private dadosEstaoValidos(): boolean {

@@ -2,12 +2,14 @@ const fs = require('fs')
 const EmailSender = require('../utils/emailSender')
 const dateFormat = require('dateformat')
 const pedidosServiceIntegrations = require('./pedidoServiceIntegration')
+const logger = require('../config/logs')
+
 
 const Pedidoservice = {
 
   enviarEmailConfirmacaoPedido: async (novoPedido) => {
 
-    console.log(`Enviando email de evento: ${JSON.stringify(novoPedido)}`)
+    logger.info(`Enviando email de evento: ${JSON.stringify(novoPedido)}`)
 
     let dadosDoCliente = await pedidosServiceIntegrations.get(`/clientes/${novoPedido.clienteId}`)
     let enderecoDoEvento = await pedidosServiceIntegrations.get(`/enderecos/${novoPedido.enderecoId}`)
@@ -22,6 +24,7 @@ const Pedidoservice = {
         html = html.replace(/%email%/g, dadosDoCliente.email);
         html = html.replace(/%telefone%/g, dadosDoCliente.telefone);
         html = html.replace(/%cliente-id%/g, novoPedido.clienteId);
+        html = html.replace(/%pedido-id%/g, novoPedido._id);
       }
 
       if (enderecoDoEvento !== null) {

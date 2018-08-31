@@ -1,5 +1,7 @@
 const axios = require('axios')
 const enviroments = require('../config/enviroments')
+const logger = require('../config/logs')
+
 
 // Set config defaults when creating the instance
 const instance = axios.create({
