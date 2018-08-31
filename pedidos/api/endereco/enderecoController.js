@@ -4,17 +4,17 @@ const enderecoService = require('./enderecoService')
 const basicAuth = require('basic-auth-connect');
 const yargs = require('yargs')
 const args = yargs.argv
-
+const logger = require('../../config/logs')
 
 router.get('/enderecos', basicAuth(args.USER_NAME, args.USER_PASS), function (req, res) {
-    console.log("Listando enderecos...")
+    logger.info("Listando enderecos...")
     enderecoService.findAll(res)
 })
 
 router.post('/enderecos', async function (req, res) {
     try {
     
-        console.log(`Salvando um novo endereco:  ${JSON.stringify(req.body)}`)
+        logger.info(`Salvando um novo endereco:  ${JSON.stringify(req.body)}`)
 
         let endereco = await enderecoService.save(req.body)
 
@@ -28,13 +28,13 @@ router.post('/enderecos', async function (req, res) {
 router.get('/enderecos/:id', basicAuth(args.USER_NAME, args.USER_PASS), async (req, res) => {
     try {
 
-        console.log(`Buscando um endereco por id: ${req.params.id}`)
+        logger.info(`Buscando um endereco por id: ${req.params.id}`)
 
         let id = req.params.id;
 
         let endereco = await enderecoService.findById(id);
 
-        console.log(`Endereco encontrado: ${endereco}`)
+        logger.info(`Endereco encontrado: ${endereco}`)
 
         return res.json(endereco)
 
