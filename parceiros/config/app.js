@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('./cors')
 const queryParser = require('express-query-int')
+const log4js = require('log4js')
+
 
 module.exports = function (server) {
 
@@ -15,6 +17,7 @@ module.exports = function (server) {
 
     server.use(bodyParser.json())
     server.use(cors)
+    server.use(log4js.connectLogger(log4js.getLogger("http"), { level: 'auto' }));
     server.use(queryParser())
     server.use(API_VERSION, router)
     server.use(API_VERSION, require('../api/parceiros/parceiroController'))

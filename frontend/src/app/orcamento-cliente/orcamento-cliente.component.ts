@@ -38,9 +38,11 @@ export class OrcamentoClienteComponent implements OnInit {
   public mostrarUltimaCotacao: boolean = false
   public progresso: number = 0
   public titulo: String = "Enviar cotação"
-  public progressoStyle:Object = {'width':'0%'}
+  public progressoStyle: Object = { 'width': '0%' }
   public orcamento: Orcamento;
   public orcamentos: Array<Orcamento> = new Array<Orcamento>();
+  public mensagemNaoPossuiOrcamentos: string
+  public possuiOrcamentos: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -60,9 +62,9 @@ export class OrcamentoClienteComponent implements OnInit {
     console.log(this.route.params)
   }
 
-  private atualizarProgresso(titulo:string, progresso: number){
+  private atualizarProgresso(titulo: string, progresso: number) {
     this.progresso = (this.progresso = progresso)
-    this.progressoStyle = {'width':`${this.progresso}%`}
+    this.progressoStyle = { 'width': `${this.progresso}%` }
     this.titulo = titulo
   }
 
@@ -84,18 +86,20 @@ export class OrcamentoClienteComponent implements OnInit {
 
   private carregarOrcamentos(): void {
 
-    this.orcamentos.forEach((orcamentoItem) => {
+    if (this.orcamentos.length < 1) {
+      return;
+    }
 
+    this.orcamentos.forEach((orcamentoItem) => {
       this.parceiroService.buscarParceiro(orcamentoItem.parceiroId)
-      .pipe(tap((response: Parceiro) => {
-        console.log(`Buscando cliente: ${JSON.stringify(response)}`)
-        this.parceiro = new Parceiro();
-        orcamentoItem.parceiro = response;
-      }))
-      .subscribe()
+        .pipe(tap((response: Parceiro) => {
+          console.log(`Buscando parceiro: ${JSON.stringify(response)}`)
+          orcamentoItem.parceiro = response;
+          this.possuiOrcamentos = true
+        }))
+        .subscribe()
 
     });
-    
   }
 
   private buscarCliente(clienteId: string): void {
@@ -128,33 +132,33 @@ export class OrcamentoClienteComponent implements OnInit {
   public selecionarCotacao(orcamento: Orcamento): void {
 
     this.orcamentoClienteService.selecionarOrcamento(this.pedido._id, orcamento.parceiroId)
-    .pipe(tap((response: Pedido) => {
-      console.log(`Buscando evento: ${JSON.stringify(response)}`)
+      .pipe(tap((response: Pedido) => {
+        console.log(`Buscando evento: ${JSON.stringify(response)}`)
         console.log(` Orçamento selecionado com sucesso: ${JSON.stringify(response)}`)
         this.carregarDadosDoPedido(response._id)
-    }))
-    .subscribe()
+      }))
+      .subscribe()
   }
 
   public cancelarCotacao(orcamento: Orcamento): void {
 
     this.orcamentoClienteService.cancelarOrcamento(this.pedido._id, orcamento.parceiroId)
-    .pipe(tap((response: Pedido) => {
-      console.log(`Buscando evento: ${JSON.stringify(response)}`)
+      .pipe(tap((response: Pedido) => {
+        console.log(`Buscando evento: ${JSON.stringify(response)}`)
         console.log(` Orçamento cancelado com sucesso: ${JSON.stringify(response)}`)
         this.carregarDadosDoPedido(response._id)
-    }))
-    .subscribe()
+      }))
+      .subscribe()
   }
 
   public reprovarCotacao(orcamento: Orcamento): void {
 
     this.orcamentoClienteService.reprovarOrcamento(this.pedido._id, orcamento.parceiroId)
-    .pipe(tap((response: Pedido) => {
-      console.log(`Buscando evento: ${JSON.stringify(response)}`)
+      .pipe(tap((response: Pedido) => {
+        console.log(`Buscando evento: ${JSON.stringify(response)}`)
         console.log(` Orçamento reprovado com sucesso: ${JSON.stringify(response)}`)
         this.carregarDadosDoPedido(response._id)
-    }))
-    .subscribe()
+      }))
+      .subscribe()
   }
 }

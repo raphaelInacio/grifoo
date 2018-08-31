@@ -1,7 +1,6 @@
-const log4js = require('log4js');
-log4js.configure({
-  appenders: { pedido: { type: 'file', filename: 'pedidos.log' } },
-  categories: { default: { appenders: ['pedido'], level: 'info' } }
-});
-const logger = log4js.getLogger('pedido');
+var log4js = require('log4js');
+log4js.configure( `${__dirname}/log4js.json`);
+var logger = log4js.getLogger('app');
+logger.info("Loggs is worked")
 module.exports = logger
+

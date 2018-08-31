@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const basicAuth = require('basic-auth-connect');
 const enviroments = require('../../config/enviroments')
+
 const logger = require('../../config/logs')
 const pedidoService = require('./pedidoService')
 

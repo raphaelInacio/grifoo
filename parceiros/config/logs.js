@@ -1,7 +1,6 @@
-const log4js = require('log4js');
-log4js.configure({
-  appenders: { parceiros: { type: 'file', filename: 'parceiros.log' } },
-  categories: { default: { appenders: ['parceiros'], level: 'info' } }
-});
-const logger = log4js.getLogger('parceiros');
+var log4js = require('log4js');
+log4js.configure( `${__dirname}/log4js.json`);
+var logger = log4js.getLogger('app');
+logger.info("Loggs is worked")
 module.exports = logger
+

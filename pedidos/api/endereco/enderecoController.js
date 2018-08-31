@@ -4,6 +4,7 @@ const enderecoService = require('./enderecoService')
 const basicAuth = require('basic-auth-connect');
 const yargs = require('yargs')
 const args = yargs.argv
+
 const logger = require('../../config/logs')
 
 router.get('/enderecos', basicAuth(args.USER_NAME, args.USER_PASS), function (req, res) {

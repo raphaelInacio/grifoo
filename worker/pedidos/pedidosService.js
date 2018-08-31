@@ -24,6 +24,7 @@ const Pedidoservice = {
         html = html.replace(/%email%/g, dadosDoCliente.email);
         html = html.replace(/%telefone%/g, dadosDoCliente.telefone);
         html = html.replace(/%cliente-id%/g, novoPedido.clienteId);
+        html = html.replace(/%pedido-id%/g, novoPedido._id);
       }
 
       if (enderecoDoEvento !== null) {

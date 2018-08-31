@@ -1,4 +1,5 @@
 const Cliente = require('./cliente')
+
 const logger = require('../../config/logs')
 
 const ClienteService = {

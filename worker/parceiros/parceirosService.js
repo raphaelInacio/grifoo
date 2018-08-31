@@ -21,9 +21,8 @@ const Parceiroservice = {
       }
 
       EmailSender.send(
-        "Atendimento Grifoo <atendimento@grifoo.com>", ["contato.raphaelinacio@gmail.com",
-          novoCadastro.email
-        ],
+        "Atendimento Grifoo <atendimento@grifoo.com>", 
+        [novoCadastro.email],
         "[Confirmação de Cadastro]",
         html.toString())
     });
@@ -37,7 +36,6 @@ const Parceiroservice = {
     let dadosDoEvento = await pedidoServiceIntegration.get(`/eventos/${novoPedido.eventoId}`)
     let parceiros = await parceiroServiceIntegration.get(`/parceiros`)
 
-    let cont = 0
     parceiros.forEach(parceiro => {
         logger.info(`Enviando mail para parceiro, ${parceiro.nome} e email ${parceiro.email}`)
 
@@ -67,9 +65,8 @@ const Parceiroservice = {
           }
 
           EmailSender.send(
-            "Atendimento Grifoo <atendimento@grifoo.com>", ["contato.raphaelinacio@gmail.com",
-              novoPedido.email
-            ],
+            "Atendimento Grifoo <atendimento@grifoo.com>", 
+            [parceiro.email],
             "[Solicitação de orçamento]",
             html.toString())
         });
