@@ -27,6 +27,7 @@ services:
    - 'enviroments.env'
   links: 
    - queue:queue
+  image: raphaelinacio/grifoo_pedidos:latest
  parceiros:
   build: ./parceiros 
   ports: 
@@ -40,6 +41,7 @@ services:
    - private
   env_file: 
    - 'enviroments.env'
+  image: raphaelinacio/grifoo_parceiros:latest
  iam:
   build: ./iam 
   ports: 
@@ -53,6 +55,7 @@ services:
    - private
   env_file: 
    - 'enviroments.env'
+  image: raphaelinacio/grifoo_iam:latest
  frontend:
   image: nginx:1.13
   volumes: 
@@ -88,4 +91,5 @@ services:
     - parceiros:parceiros
   env_file: 
    - 'enviroments.env'
+  image: raphaelinacio/grifoo_worker:latest
   
