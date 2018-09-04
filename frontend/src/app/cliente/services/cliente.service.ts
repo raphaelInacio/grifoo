@@ -27,6 +27,12 @@ export class ClienteService {
                 this.constantes.httpOptions)
     }
 
+    public buscarClientes(): Observable<Array<Cliente>> {
+        return this.http
+            .get<Array<Cliente>>(`${this.constantes.url}/clientes`,
+                this.constantes.httpOptions)
+    }
+
     private handleError(err: HttpErrorResponse | any) {
         console.error('An error occurred', err);
         return Observable.throw(err.message || err);

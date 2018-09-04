@@ -22,5 +22,10 @@ export class ParceiroService {
   public buscarParceiro(parceiroId: string): Observable<Parceiro> {
     return this.http.get<Parceiro>(`${this.constantes.urlParceiros}/parceiros/${parceiroId}`, this.constantes.httpOptions)
   }
+  
+  public buscarParceiros(): Observable<Array<Parceiro>> {
+    return this.http.get<Array<Parceiro>>(`${this.constantes.urlParceiros}/parceiros`, this.constantes.httpOptions)
+  }
+
 
 }

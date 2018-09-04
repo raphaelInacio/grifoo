@@ -32,6 +32,7 @@ import { Interceptor } from './interceptors/interceptor';
 import { OrcamentoParceiroService } from './orcamento-parceiro/service/orcamento-parceiro.service';
 import { OrcamentoClienteComponent } from './orcamento-cliente/orcamento-cliente.component';
 import { OrcamentoClienteService } from './orcamento-cliente/service/orcamento-cliente.service';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { OrcamentoClienteService } from './orcamento-cliente/service/orcamento-c
     ErrorFormComponent,
     OrcamentoParceiroComponent,
     OrcamentoClienteComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,90 @@
+<div class="section section-basic">
+  <div class="container">
+    <div class="row mt-10">
+      <div class="col-md-3 col-sm-12">
+        <button (click)="mostrarClientes()" class="btn btn-info btn-round">
+          <i class="now-ui-icons design_bullet-list-67"></i> Listar Clientes</button>
+        <button (click)="mostrarFornecedores()" class="btn btn-info btn-round">
+          <i class="now-ui-icons design_bullet-list-67"></i> Listar Fornecedores</button>
+        <button (click)="mostrarPedidos()" class="btn btn-info btn-round">
+          <i class="now-ui-icons design_bullet-list-67"></i> Listar Pedidos</button>
+      </div>
+
+      <div *ngIf="mostraClientes" id="orcamentos" class="col-md-9 col-sm-12">
+        <p class="category">Lista de Clientes</p>
+        <div *ngFor="let cliente of clientes">
+          <p class="category">Cliente - {{cliente._id}}</p>
+          <dl>
+            <dt>Nome</dt>
+            <dd>{{cliente.nome}}</dd>
+            <dt>Email</dt>
+            <dd>{{cliente.email}}</dd>
+            <dt>Telefone</dt>
+            <dd>{{cliente.telefone}}</dd>
+          </dl>
+          <hr>
+        </div>
+      </div>
+
+      <div *ngIf="mostraFornecedores" id="fornecedores" class="col-md-9 col-sm-12">
+        <p class="category">Lista de Parceiros</p>
+        <div *ngFor="let parceiro of fornecedores">
+          <p class="category">Parceiro - {{parceiro._id}}</p>
+          <dl>
+            <dt>Nome</dt>
+            <dd>{{parceiro.nome}}</dd>
+            <dt>Email</dt>
+            <dd>{{parceiro.email}}</dd>
+            <dt>Telefone</dt>
+            <dd>{{parceiro.telefone}}</dd>
+          </dl>
+          <hr>
+        </div>
+      </div>
+
+      <div *ngIf="mostraPedidos" id="pedidos" class="col-md-9 col-sm-12">
+        <p class="category">Lista de Pedidos</p>
+        <div *ngFor="let pedido of pedidos">
+          <div>
+            <p class="category">Pedido - {{pedido._id}}</p>
+            <dl>
+              <dt>Nome</dt>
+              <dd>{{pedido.cliente.nome}}</dd>
+              <dt>Email</dt>
+              <dd>{{pedido.cliente.email}}</dd>
+              <dt>Telefone</dt>
+              <dd>{{pedido.cliente.telefone}}</dd>
+            </dl>
+
+          </div>
+
+
+          <div>
+            <p class="category">Local do evento</p>
+            <dl>
+              <dt>Endereco</dt>
+              <dd>{{pedido.endereco.rua}} - {{pedido.endereco.numero}}, {{pedido.endereco.complemento}}, {{pedido.endereco.bairro}},
+                CEP: {{pedido.endereco.cep}}, {{pedido.endereco.cidade}}-{{pedido.endereco.estado}}
+              </dd>
+            </dl>
+          </div>
+
+          <div>
+            <p class="category">Detalhes do evento</p>
+            <dl>
+              <dt>Evento</dt>
+              <dd>{{pedido.evento.tipoEvento}}</dd>
+              <dt>Periodo</dt>
+              <dd>Total de horas: {{pedido.evento.duracaoEvento}} com início dia {{pedido.evento.dataHoraDeInicio | date:
+                'dd/MM/yyyy'}}
+              </dd>
+              <dt>Numero de pessoas</dt>
+              <dd>{{pedido.evento.numeroPessoas}}</dd>
+            </dl>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

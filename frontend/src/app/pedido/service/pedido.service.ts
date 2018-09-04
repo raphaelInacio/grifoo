@@ -24,4 +24,10 @@ export class PedidoService {
         this.constantes.httpOptions)
   }
 
+  public buscarPedidos(): Observable<Array<Pedido>> {
+    return this.http
+      .get<Array<Pedido>>(`${this.constantes.url}/pedidos`,
+        this.constantes.httpOptions)
+  }
+
 }
