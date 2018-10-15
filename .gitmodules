@@ -1,0 +1,3 @@
+[submodule "grifoo-config-services"]
+	path = grifoo-config-services
+	url = https://github.com/raphaelInacio/grifoo-config-services.git
