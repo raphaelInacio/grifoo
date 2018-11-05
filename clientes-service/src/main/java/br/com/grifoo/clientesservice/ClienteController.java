@@ -22,6 +22,7 @@ public class ClienteController {
 	@ApiOperation(value = "Listar todos os clientes", produces = "application/json")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Dados recuperados com sucesso"),
+			@ApiResponse(code = 204, message = "Não existem dados para serem recuperados"),
 	})
 	public List<Cliente> buscarTodosclientes() {
 		return clienteService.buscarTodos();

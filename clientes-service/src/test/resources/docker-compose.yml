@@ -1,0 +1,6 @@
+version: '2'
+services:
+  db:
+    image: mongo:3.4
+    volumes:
+    - /data/db:/data/db
